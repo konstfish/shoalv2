@@ -1,6 +1,15 @@
-apiVersion: argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
   name: argocd
   namespace: cluster-argocd
-spec: {}
+spec: 
+  # disableAdmin: true
+  server:
+    grpc:
+      ingress:
+        enabled: false
+    ingress:
+      enabled: false
+
+  sourceNamespaces: []
