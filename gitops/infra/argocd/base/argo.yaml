@@ -13,3 +13,10 @@ spec:
       enabled: false
 
   sourceNamespaces: []
+  applicationSet:	
+    enabled: true	
+    webhookServer:	
+      ingress:	
+        enabled: false	
+      route:	
+        enabled: false

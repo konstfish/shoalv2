@@ -4,6 +4,10 @@ metadata:
   name: argocd-operator
   namespace: operators
 spec:
+  config:
+    env:
+    - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
+      value: cluster-argocd
   channel: alpha
   name: argocd-operator
   source: operatorhubio-catalog
