@@ -1,15 +1,23 @@
+{{- range .Values.component }}
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-argo
-  namespace: cluster-provisioning
+  name: provision-{{ .name }}
+  namespace: {{ $.Values.argoNamespace }}
 spec:
   destination:
     server: https://kubernetes.default.svc
-  project: infra
+    {{- if .targetNamespace }}
+    namespace: {{ .targetNamespace }}
+    {{- end }}
+  project: {{ .project }}
   source:
-    path: gitops/infra/argocd/base
-    repoURL: https://github.com/konstfish/shoalv2
-    targetRevision: HEAD
-  #syncPolicy:
-  #  automated: {}
+    path: gitops/{{ .project }}/{{ .name }}/{{ .basePath }}
+    repoURL: {{ $.Values.repo }}
+    targetRevision: {{ $.Values.targetRevision }}
+  {{- if .autoSync }}
+  syncPolicy:
+    automated: {}
+  {{- end }}
+{{- end }}

@@ -5,7 +5,7 @@ metadata:
 spec:
   project: infra
   source:
-    repoURL: oci://ghcr.io/cloudtooling/helm-charts
+    repoURL: ghcr.io/cloudtooling/helm-charts
     chart: olm
     targetRevision: 0.31.0
     helm:
@@ -35,3 +35,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true

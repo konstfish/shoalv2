@@ -1,8 +1,19 @@
+repo: https://github.com/konstfish/shoalv2
+targetRevision: HEAD
+
+argoNamespace: cluster-provisioning
+
 component:
   - name: olm
-    type: infra
-    basePath: base/
+    enabled: true
+    project: infra
+    type: kustomize
+    basePath: base
+    autoSync: true
+    targetNamespace: cluster-provisioning
   - name: argocd
-    type: infra
-    basePath: base/
-  - name: 
+    enabled: true
+    project: infra
+    type: kustomize
+    basePath: base
+    autoSync: true

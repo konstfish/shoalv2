@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap-app
+  namespace: cluster-provisioning
+spec:
+  project: infra
+  source:
+    path: gitops/projects/bootstrap
+    repoURL: https://github.com/konstfish/shoalv2
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    namespace: 'cluster-provisioning'
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}
