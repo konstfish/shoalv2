@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-argo
+  namespace: cluster-provisioning
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  project: infra
+  source:
+    path: gitops/infra/argocd/base
+    repoURL: https://github.com/konstfish/shoalv2
+    targetRevision: HEAD
+  #syncPolicy:
+  #  automated: {}

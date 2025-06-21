@@ -1,6 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: cluster-argocd
-  labels:
-    app.kubernetes.io/managed-by: cluster-argocd
+  name: cluster-infra-argocd

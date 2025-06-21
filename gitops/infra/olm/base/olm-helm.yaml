@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: olm
+spec:
+  project: infra
+  source:
+    repoURL: oci://ghcr.io/cloudtooling/helm-charts
+    chart: olm
+    targetRevision: 0.31.0
+    helm:
+      values: |
+        namespace: olm
+        catalog_namespace: olm
+        operator_namespace: operators
+
+        # required for metallb speaker pods
+        # TODO: remove this
+        namespace_psa: 
+          enforceLevel: privileged
+          enforceVersion: latest
+          auditLevel: baseline
+          auditVersion: latest
+          warnLevel: baseline
+          warnVersion: latest
+        operator_namespace_psa: 
+          enforceLevel: privileged
+          enforceVersion: latest
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

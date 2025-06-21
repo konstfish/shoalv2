@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
   name: argocd
-  namespace: cluster-argocd
+  namespace: cluster-infra-argocd
 spec: 
   # disableAdmin: true
   server:
@@ -12,7 +12,10 @@ spec:
     ingress:
       enabled: false
 
-  sourceNamespaces: []
+  sourceNamespaces: 
+    - cluster-infra-argocd
+    - cluster-provisioning
+  
   applicationSet:	
     enabled: true	
     webhookServer:	

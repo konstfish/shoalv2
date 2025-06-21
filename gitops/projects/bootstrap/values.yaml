@@ -1,0 +1,8 @@
+component:
+  - name: olm
+    type: infra
+    basePath: base/
+  - name: argocd
+    type: infra
+    basePath: base/
+  - name: 
