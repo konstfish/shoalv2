@@ -1,0 +1,7 @@
+netbird
+terraform.tfvars
+terraform.tfstate*
+temp.yml
+.terraform
+.terraform.lock.hcl
+.env
