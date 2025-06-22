@@ -1,22 +1,22 @@
-{{- range .Values.components }}
+{{- range $name, $component := .Values.components }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: provision-{{ .name }}
+  name: provision-{{ $name }}
   namespace: {{ $.Values.argoNamespace }}
 spec:
   destination:
     server: https://kubernetes.default.svc
-    {{- if .targetNamespace }}
-    namespace: {{ .targetNamespace }}
+    {{- if $component.targetNamespace }}
+    namespace: {{ $component.targetNamespace }}
     {{- end }}
   project: {{ $.Values.argoProject }}
   source:
-    path: gitops/{{ .category }}/{{ .name }}/{{ .basePath }}
+    path: gitops/{{ $component.category }}/{{ $name }}/{{ $component.basePath }}
     repoURL: {{ $.Values.repo }}
     targetRevision: {{ $.Values.targetRevision }}
-  {{- if .autoSync }}
+  {{- if $component.autoSync }}
   syncPolicy:
     automated: {}
   {{- end }}

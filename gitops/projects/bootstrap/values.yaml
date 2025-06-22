@@ -5,21 +5,27 @@ argoNamespace: cluster-provisioning
 argoProject: provision
 
 components:
-  - name: olm
+  olm:
     enabled: true
     category: infra
     type: kustomize
     basePath: base
     autoSync: true
     targetNamespace: cluster-provisioning
-  - name: argocd
+  argocd:
     enabled: true
     category: infra
     type: kustomize
     basePath: base
     autoSync: true
-  - name: rook
-    enabled: true
+  rook:
+    enabled: false
+    category: infra
+    type: kustomize
+    basePath: base
+    autoSync: true
+  kubevirt:
+    enabled: false
     category: infra
     type: kustomize
     basePath: base
