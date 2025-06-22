@@ -1,7 +1,6 @@
 resources:
   # curl https://storage.googleapis.com/kubevirt-prow/release/kubevirt/kubevirt/stable.txt
   - https://github.com/kubevirt/kubevirt/releases/download/v1.5.2/kubevirt-operator.yaml
-  - https://github.com/kubevirt/kubevirt/releases/download/v1.5.2/kubevirt-cr.yaml
   - kubevirt.yaml
   # curl -s -w %{redirect_url} https://github.com/kubevirt/containerized-data-importer/releases/latest
   - https://github.com/kubevirt/containerized-data-importer/releases/download/v1.62.0/cdi-operator.yaml
