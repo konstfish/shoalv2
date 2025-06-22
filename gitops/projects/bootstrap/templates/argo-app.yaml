@@ -11,9 +11,9 @@ spec:
     {{- if .targetNamespace }}
     namespace: {{ .targetNamespace }}
     {{- end }}
-  project: {{ .project }}
+  project: {{ $.Values.argoProject }}
   source:
-    path: gitops/{{ .project }}/{{ .name }}/{{ .basePath }}
+    path: gitops/{{ .category }}/{{ .name }}/{{ .basePath }}
     repoURL: {{ $.Values.repo }}
     targetRevision: {{ $.Values.targetRevision }}
   {{- if .autoSync }}

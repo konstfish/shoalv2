@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: olm
-  namespace: cluster-provisioning
+  namespace: cluster-infra-argocd
 spec:
   project: infra
   source:
