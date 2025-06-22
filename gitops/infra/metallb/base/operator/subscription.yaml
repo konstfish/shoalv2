@@ -9,4 +9,4 @@ spec:
   channel: beta
   name: metallb-operator
   source: operatorhubio-catalog
-  sourceNamespace: operator-lifecycle-manager
+  sourceNamespace: olm
