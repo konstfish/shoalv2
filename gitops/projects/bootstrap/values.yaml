@@ -18,6 +18,12 @@ components:
     type: kustomize
     basePath: base
     autoSync: true
+  metallb:
+    enabled: false
+    category: infra
+    type: kustomize
+    basePath: base
+    autoSync: true
   rook:
     enabled: false
     category: infra

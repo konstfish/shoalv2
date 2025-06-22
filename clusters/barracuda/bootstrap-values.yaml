@@ -1,4 +1,6 @@
 components:
+  metallb:
+    enabled: true
   rook:
     enabled: true
   kubevirt:

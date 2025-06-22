@@ -1,0 +1,10 @@
+
+# all of this needs to be in the operators NS, since the operator only scans in the operator ns.
+# issue: (https://github.com/metallb/metallb-operator/issues/415)
+namespace: operators 
+
+resources:
+  - operator/subscription.yaml
+  - range/metallb.yaml
+  - range/pool.yaml
+  - range/advertisement.yaml

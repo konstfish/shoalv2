@@ -16,7 +16,7 @@ spec:
         operator_namespace: operators
 
         # required for metallb speaker pods
-        # TODO: remove this
+        # TODO: remove this when https://github.com/metallb/metallb-operator/issues/415 is resolved
         namespace_psa: 
           enforceLevel: privileged
           enforceVersion: latest
