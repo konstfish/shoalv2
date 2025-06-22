@@ -7,4 +7,4 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   addresses:
-    - 10.0.1.192/27
+    - 10.0.1.128/27
