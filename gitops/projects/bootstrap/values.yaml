@@ -3,7 +3,7 @@ targetRevision: HEAD
 
 argoNamespace: cluster-provisioning
 
-component:
+components:
   - name: olm
     enabled: true
     project: infra
@@ -17,3 +17,8 @@ component:
     type: kustomize
     basePath: base
     autoSync: true
+  - name: rook
+    enabled: true
+    project: infra
+    type: kustomize
+    basePath: base

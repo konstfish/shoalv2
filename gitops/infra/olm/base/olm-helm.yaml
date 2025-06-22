@@ -28,7 +28,7 @@ spec:
           enforceVersion: latest
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: olm
   syncPolicy:
     automated:
       prune: true
