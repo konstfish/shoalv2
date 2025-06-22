@@ -4,7 +4,7 @@ metadata:
   name: bootstrap-app
   namespace: cluster-provisioning
 spec:
-  project: infra
+  project: provision
   source:
     path: gitops/projects/bootstrap
     repoURL: https://github.com/konstfish/shoalv2
