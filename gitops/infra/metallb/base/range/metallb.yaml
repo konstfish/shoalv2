@@ -2,6 +2,5 @@ apiVersion: metallb.io/v1beta1
 kind: MetalLB
 metadata:
   name: metallb
-  namespace: operators
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true

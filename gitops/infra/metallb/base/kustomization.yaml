@@ -1,10 +1,11 @@
 
 # all of this needs to be in the operators NS, since the operator only scans in the operator ns.
 # issue: (https://github.com/metallb/metallb-operator/issues/415)
-namespace: operators 
+# another issue: https://github.com/metallb/metallb/issues/2729
+namespace: metallb-system
 
 resources:
-  - operator/subscription.yaml
+  - https://raw.githubusercontent.com/metallb/metallb/v0.15.2/config/manifests/metallb-native.yaml
   - range/metallb.yaml
   - range/pool.yaml
   - range/advertisement.yaml

@@ -14,19 +14,6 @@ spec:
         namespace: olm
         catalog_namespace: olm
         operator_namespace: operators
-
-        # required for metallb speaker pods
-        # TODO: remove this when https://github.com/metallb/metallb-operator/issues/415 is resolved
-        namespace_psa: 
-          enforceLevel: privileged
-          enforceVersion: latest
-          auditLevel: baseline
-          auditVersion: latest
-          warnLevel: baseline
-          warnVersion: latest
-        operator_namespace_psa: 
-          enforceLevel: privileged
-          enforceVersion: latest
   destination:
     server: https://kubernetes.default.svc
     namespace: olm

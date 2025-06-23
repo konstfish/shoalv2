@@ -2,7 +2,6 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   name: pool
-  namespace: operators
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:

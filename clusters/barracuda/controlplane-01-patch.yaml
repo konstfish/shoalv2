@@ -1,0 +1,13 @@
+machine:
+  network:
+    hostname: kf-op-barracuda-01
+    interfaces:
+      - interface: enp3s0
+        dhcp: false
+        addresses:
+          - 10.0.1.101/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.1.254
+        vip:
+          ip: 10.0.1.100
