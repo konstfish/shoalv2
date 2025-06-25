@@ -6,6 +6,7 @@ namespace: metallb-system
 
 resources:
   - github.com/metallb/metallb/config/native?ref=v0.15.2
-  - range/metallb.yaml
+  # - operator/
+  # - range/metallb.yaml
   - range/pool.yaml
   - range/advertisement.yaml

@@ -11,3 +11,16 @@ machine:
             gateway: 10.0.1.254
         vip:
           ip: 10.0.1.100
+
+      - interface: br0
+        addresses:
+          - 10.250.250.2/24
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+              - enp5s0f0np0
+              - enp5s0f1np1
+
+  install:
+    disk: /dev/nvme1n1

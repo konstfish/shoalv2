@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: iperf-server
+  labels:
+    app: iperf-server
+spec:
+  containers:
+    - name: iperf
+      image: cagedata/iperf3
+      command: ["iperf3", "-s"]
+      ports:
+        - containerPort: 5201
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: iperf-client
+  labels:
+    app: iperf-client  # Add this label
+spec:
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - iperf-server  # This will avoid nodes with iperf-server pods
+        topologyKey: kubernetes.io/hostname
+  containers:
+    - name: iperf
+      image: cagedata/iperf3
+      command: ["sleep", "30000"]
