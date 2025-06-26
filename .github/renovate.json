@@ -1,0 +1,15 @@
+{
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["\\.yaml$"],
+      "matchStrings": [
+        "kind:\\s*HelmChart\\s*\\n(?:.*\\n)*?\\s*chart:\\s*(?<depName>.*?)\\s*\\n(?:.*\\n)*?\\s*repo:\\s*(?<registryUrl>.*?)\\s*\\n(?:.*\\n)*?\\s*version:\\s*(?<currentValue>.*?)\\s*\\n"
+      ],
+      "datasourceTemplate": "helm"
+    }
+  ],
+  "kubernetes": {
+    "fileMatch": ["\\.yaml$", "deployment.yaml"]
+  }
+}
