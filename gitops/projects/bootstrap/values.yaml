@@ -24,7 +24,14 @@ components:
     type: kustomize
     basePath: base
     autoSync: true
+  # storage
   rook:
+    enabled: false
+    category: infra
+    type: kustomize
+    basePath: base
+    autoSync: true
+  local-path-provisioner:
     enabled: false
     category: infra
     type: kustomize

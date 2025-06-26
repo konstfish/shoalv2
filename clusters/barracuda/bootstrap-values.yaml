@@ -3,5 +3,7 @@ components:
     enabled: true
   rook:
     enabled: true
+  local-path-provisioner:
+    enabled: true
   kubevirt:
     enabled: true

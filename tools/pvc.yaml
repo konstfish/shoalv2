@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: testpvc
+  name: alpine-pvc
 spec:
-  storageClassName: rook-ceph-block
+  storageClassName: local-path
   resources:
     requests:
       storage: 10Gi
@@ -14,9 +14,9 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: alpine-test-pod
+  name: alpine-pvc
   labels:
-    app: alpine-test
+    app: alpine-pvc
 spec:
   containers:
   - name: alpine-container
@@ -36,5 +36,5 @@ spec:
   volumes:
   - name: test-storage
     persistentVolumeClaim:
-      claimName: testpvc
+      claimName: testpvc2
   restartPolicy: Always

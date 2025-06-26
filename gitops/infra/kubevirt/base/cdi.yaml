@@ -7,7 +7,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "2"
 spec:
   config:
-    scratchSpaceStorageClass: todo-class # TODO
+    scratchSpaceStorageClass: local-path
     podResourceRequirements:
       requests:
         cpu: "100m"
