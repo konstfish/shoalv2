@@ -1,9 +1,12 @@
-{{- range $name, $component := .Values.components }}
+{{- range $category, $subcategories := .Values.components }}
+{{- range $subcategory, $apps := $subcategories }}
+{{- range $app, $component := $apps }}
+{{- if $component.enabled }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: provision-{{ $name }}
+  name: provision-{{ $app }}
   namespace: {{ $.Values.argoNamespace }}
 spec:
   destination:
@@ -13,11 +16,14 @@ spec:
     {{- end }}
   project: {{ $.Values.argoProject }}
   source:
-    path: gitops/{{ $component.category }}/{{ $name }}/{{ $component.basePath }}
+    path: gitops/{{ $component.category }}/{{ $subcategory }}/{{ $app }}/{{ $component.basePath }}
     repoURL: {{ $.Values.repo }}
     targetRevision: {{ $.Values.targetRevision }}
   {{- if $component.autoSync }}
   syncPolicy:
     automated: {}
   {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
 {{- end }}

@@ -5,41 +5,51 @@ argoNamespace: cluster-provisioning
 argoProject: provision
 
 components:
-  olm:
-    enabled: true
-    category: infra
-    type: kustomize
-    basePath: base
-    autoSync: true
-    targetNamespace: cluster-provisioning
-  argocd:
-    enabled: true
-    category: infra
-    type: kustomize
-    basePath: base
-    autoSync: true
-  metallb:
-    enabled: false
-    category: infra
-    type: kustomize
-    basePath: base
-    autoSync: true
-  # storage
-  rook:
-    enabled: false
-    category: infra
-    type: kustomize
-    basePath: base
-    autoSync: true
-  local-path-provisioner:
-    enabled: false
-    category: infra
-    type: kustomize
-    basePath: base
-    autoSync: true
-  kubevirt:
-    enabled: false
-    category: infra
-    type: kustomize
-    basePath: base
-    autoSync: true
+  infra:
+    management:
+      olm:
+        enabled: true
+        category: infra
+        type: kustomize
+        basePath: base
+        autoSync: true
+        targetNamespace: cluster-provisioning
+      argocd:
+        enabled: true
+        category: infra
+        type: kustomize
+        basePath: base
+        autoSync: true
+    storage:
+      rook:
+        enabled: false
+        category: infra
+        type: kustomize
+        basePath: base
+        autoSync: true
+      local-path-provisioner:
+        enabled: false
+        category: infra
+        type: kustomize
+        basePath: base
+        autoSync: true
+    network:
+      flannel:
+        enabled: false
+        category: infra
+        type: kustomize
+        basePath: base
+        autoSync: true
+      metallb:
+        enabled: false
+        category: infra
+        type: kustomize
+        basePath: base
+        autoSync: true
+    compute:
+      kubevirt:
+        enabled: false
+        category: infra
+        type: kustomize
+        basePath: base
+        autoSync: true
