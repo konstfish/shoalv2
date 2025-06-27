@@ -8,9 +8,10 @@ metadata:
 spec:
   project: infra
   source:
-    repoURL: https://charts.bitnami.com/bitnami
+    # https://github.com/helm/helm/issues/13466
+    repoURL: registry-1.docker.io/bitnamicharts
     chart: external-dns
-    targetRevision: 8.8.1
+    targetRevision: 8.8.6
     helm:
       valuesObject:
         txtPrefix: extdns
