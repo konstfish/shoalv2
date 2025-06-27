@@ -23,7 +23,13 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+    ingress:
       cert-manager:
+        enabled: true
+        type: kustomize
+        basePath: base
+        autoSync: true
+      external-dns:
         enabled: true
         type: kustomize
         basePath: base
