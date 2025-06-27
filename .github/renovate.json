@@ -11,5 +11,14 @@
   ],
   "kubernetes": {
     "fileMatch": ["\\.yaml$", "deployment.yaml"]
-  }
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["^kustomization\\.yaml$"],
+      "matchStrings": [
+        "# renovate: datasource=github-releases depName=(?<depName>.*?)\\n.*?download/(?<currentValue>.*?)/"
+      ],
+      "datasourceTemplate": "github-releases"
+    }
+  ]
 }
