@@ -16,7 +16,7 @@ spec:
     {{- end }}
   project: {{ $.Values.argoProject }}
   source:
-    path: gitops/{{ $component.category }}/{{ $subcategory }}/{{ $app }}/{{ $component.basePath }}
+    path: gitops/{{ $category }}/{{ $subcategory }}/{{ $app }}/{{ $component.basePath }}
     repoURL: {{ $.Values.repo }}
     targetRevision: {{ $.Values.targetRevision }}
   {{- if $component.autoSync }}
