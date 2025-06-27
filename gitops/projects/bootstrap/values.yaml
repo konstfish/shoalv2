@@ -23,6 +23,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      cert-manager:
+        enabled: true
+        type: kustomize
+        basePath: base
+        autoSync: true
     storage:
       rook:
         enabled: false
