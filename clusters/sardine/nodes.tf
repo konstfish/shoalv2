@@ -25,10 +25,8 @@ resource "hcloud_server" "controlplane" {
   image = data.hcloud_image.talos.id
   server_type = var.server_type
   location    = var.hetzner_location
-  // ssh_keys           = keys(hcloud_ssh_key.default)
+  ssh_keys           = [data.hcloud_ssh_key.default.id]
   placement_group_id = hcloud_placement_group.placement_group.id
-
-  user_data = data.talos_machine_configuration.controlplane.machine_configuration
 
   firewall_ids = [hcloud_firewall.default.id]
 

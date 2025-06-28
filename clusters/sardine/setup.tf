@@ -4,6 +4,10 @@ data "http" "runner_public_ip" {
 }
 
 # hetzner ssh key
+data "hcloud_ssh_key" "default" {
+  name = "konstfish"
+}
+
 /*data "external" "github_ssh_keys" {
   for_each = toset(var.github_usernames)
 

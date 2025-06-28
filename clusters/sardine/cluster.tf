@@ -14,6 +14,33 @@ data "talos_machine_configuration" "controlplane" {
             enable-admission-plugins = "NodeRestriction"
           }
         }
+        extraManifests = [
+          "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml",
+          "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
+        ]
+        inlineManifests = [
+          {
+            name = "hcloud-secret"
+            contents = <<-EOT
+              apiVersion: v1
+              kind: Secret
+              metadata:
+                name: hcloud
+                namespace: kube-system
+              type: Opaque
+              data:
+                token: ${base64encode(var.hcloud_token)}
+                network: ${base64encode(hcloud_network.default.name)}
+            EOT
+          }
+        ]
+        externalCloudProvider = {
+          enabled = true
+          manifests = [
+            "https://github.com/hetznercloud/hcloud-cloud-controller-manager/releases/latest/download/ccm-networks.yaml"
+          ]
+        }
+        allowSchedulingOnControlPlanes = true
       }
       machine = {
         features = {
@@ -37,6 +64,12 @@ data "talos_client_configuration" "this" {
   cluster_name         = var.cluster_name
   client_configuration = talos_machine_secrets.this.client_configuration
   endpoints            = [hcloud_server.controlplane.0.ipv4_address]
+}
+
+resource "talos_machine_configuration_apply" "this" {
+  client_configuration        = talos_machine_secrets.this.client_configuration
+  machine_configuration_input = data.talos_machine_configuration.controlplane.machine_configuration
+  node                        = hcloud_server.controlplane.0.ipv4_address
 }
 
 resource "talos_machine_bootstrap" "this" {

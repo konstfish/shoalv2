@@ -7,3 +7,4 @@ temp.yml
 .env
 old
 etc
+kubeconfig
