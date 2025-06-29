@@ -20,11 +20,11 @@ resource "hcloud_primary_ip" "main" {
 }
 
 resource "hcloud_server" "controlplane" {
-  count = var.cluster_controller_node_count
-  name  = "${var.cluster_name}-ctl-${count.index}"
-  image = data.hcloud_image.talos.id
-  server_type = var.server_type
-  location    = var.hetzner_location
+  count              = var.cluster_controller_node_count
+  name               = "${var.cluster_name}-ctl-${count.index}"
+  image              = data.hcloud_image.talos.id
+  server_type        = var.server_type
+  location           = var.hetzner_location
   ssh_keys           = [data.hcloud_ssh_key.default.id]
   placement_group_id = hcloud_placement_group.placement_group.id
 

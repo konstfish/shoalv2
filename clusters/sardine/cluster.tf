@@ -5,7 +5,7 @@ data "talos_machine_configuration" "controlplane" {
   machine_type     = "controlplane"
   cluster_endpoint = "https://${hcloud_primary_ip.main.0.ip_address}:6443"
   machine_secrets  = talos_machine_secrets.this.machine_secrets
-  
+
   config_patches = [
     yamlencode({
       cluster = {
@@ -20,7 +20,7 @@ data "talos_machine_configuration" "controlplane" {
         ]
         inlineManifests = [
           {
-            name = "hcloud-secret"
+            name     = "hcloud-secret"
             contents = <<-EOT
               apiVersion: v1
               kind: Secret
@@ -54,6 +54,14 @@ data "talos_machine_configuration" "controlplane" {
           extraConfig = {
             serverTLSBootstrap = true
           }
+          extraMounts = [
+            {
+              destination = "/var/mnt/local-storage-provisioner"
+              type        = "bind"
+              source      = "/var/mnt/local-storage-provisioner"
+              options     = ["bind", "rshared", "rw"]
+            }
+          ]
         }
       }
     })
@@ -77,7 +85,7 @@ resource "talos_machine_bootstrap" "this" {
   endpoint             = hcloud_server.controlplane.0.ipv4_address
   node                 = hcloud_server.controlplane.0.ipv4_address
 
-  depends_on           = [hcloud_server.controlplane.0]
+  depends_on = [hcloud_server.controlplane.0]
 }
 
 resource "talos_cluster_kubeconfig" "this" {
@@ -85,5 +93,5 @@ resource "talos_cluster_kubeconfig" "this" {
   endpoint             = hcloud_server.controlplane.0.ipv4_address
   node                 = hcloud_server.controlplane.0.ipv4_address
 
-  depends_on           = [talos_machine_bootstrap.this]
+  depends_on = [talos_machine_bootstrap.this]
 }

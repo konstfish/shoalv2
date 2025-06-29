@@ -3,3 +3,6 @@ components:
     management:
       argocd:
         enabled: false
+    storage:
+      local-path-provisioner:
+        enabled: true
