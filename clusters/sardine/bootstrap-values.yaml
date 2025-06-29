@@ -1,0 +1,5 @@
+components:
+  infra:
+    management:
+      argocd:
+        enabled: false

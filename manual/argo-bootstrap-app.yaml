@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-        - ../../../clusters/barracuda/bootstrap-values.yaml
+        - ../../../clusters/sardine/bootstrap-values.yaml
   destination:
     namespace: 'cluster-provisioning'
     server: https://kubernetes.default.svc
