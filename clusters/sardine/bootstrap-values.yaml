@@ -2,7 +2,8 @@ components:
   infra:
     management:
       argocd:
-        enabled: false
+        enabled: true
+        basePath: overlays/helm
     storage:
       local-path-provisioner:
         enabled: true

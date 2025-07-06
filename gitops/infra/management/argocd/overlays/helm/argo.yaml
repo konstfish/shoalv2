@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-infra-argocd
+  namespace: cluster-infra-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: infra
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: 8.1.2
+    helm:
+      valuesObject:
+        server:
+          ingress:
+            enabled: false
+          ingressGrpc:
+            enabled: false
+
+        applicationSet:
+          enabled: true
+          webhook:
+            ingress:
+              enabled: false
+
+        configs:
+          params:
+            application.namespaces: "cluster-infra-argocd,cluster-provisioning"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cluster-infra-argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
