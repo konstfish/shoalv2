@@ -27,13 +27,62 @@ resource "hcloud_firewall" "default" {
     direction  = "in"
     protocol   = "tcp"
     port       = "50000"
-    source_ips = [join("/", [data.http.runner_public_ip.response_body, "32"]), "159.69.94.229/32"]
+    source_ips = [join("/", [data.http.runner_public_ip.response_body, "32"])]
   }
 
   rule {
     direction  = "in"
     protocol   = "tcp"
     port       = "6443"
-    source_ips = [join("/", [data.http.runner_public_ip.response_body, "32"]), "159.69.94.229/32"]
+    source_ips = [join("/", [data.http.runner_public_ip.response_body, "32"])]
+  }
+
+  rule {
+    direction  = "in"
+    protocol   = "tcp"
+    port       = "80"
+    source_ips = ["0.0.0.0/0"]
+  }
+
+  rule {
+    direction  = "in"
+    protocol   = "tcp"
+    port       = "443"
+    source_ips = ["0.0.0.0/0"]
+  }
+
+  rule {
+    direction  = "in"
+    protocol   = "tcp"
+    port       = "3478"
+    source_ips = ["0.0.0.0/0"]
+  }
+
+  rule {
+    direction  = "in"
+    protocol   = "tcp"
+    port       = "5349"
+    source_ips = ["0.0.0.0/0"]
+  }
+
+  rule {
+    direction  = "in"
+    protocol   = "udp"
+    port       = "5349"
+    source_ips = ["0.0.0.0/0"]
+  }
+
+  rule {
+    direction  = "in"
+    protocol   = "udp"
+    port       = "3478"
+    source_ips = ["0.0.0.0/0"]
+  }
+
+  rule {
+    direction = "in"
+    protocol  = "udp"
+    port      = "49152-65535"
+    source_ips = ["0.0.0.0/0"]
   }
 }

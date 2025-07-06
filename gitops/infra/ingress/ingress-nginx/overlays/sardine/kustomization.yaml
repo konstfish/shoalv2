@@ -6,3 +6,4 @@ resources:
 
 patches:
   - path: ingress-nginx.yaml
+  - path: ns.yaml
