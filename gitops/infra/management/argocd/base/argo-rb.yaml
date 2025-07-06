@@ -18,5 +18,8 @@ roleRef:
   name: argocd-application-controller
 subjects:
 - kind: ServiceAccount
+  name: argocd-application-controller
+  namespace: cluster-infra-argocd
+- kind: ServiceAccount
   name: argocd-argocd-application-controller
   namespace: cluster-infra-argocd
