@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: cluster-infra-argocd
+spec:
+  source:
+    helm:
+      valuesObject:
+        controller:
+          nodeSelector:
+            node-role.kubernetes.io/control-plane: "true"
+          kind: DaemonSet
+          hostNetwork: true
+          hostPort:
+            enabled: true

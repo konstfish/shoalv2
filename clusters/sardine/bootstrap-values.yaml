@@ -7,3 +7,7 @@ components:
     storage:
       local-path-provisioner:
         enabled: true
+    ingress:
+      ingress-nginx:
+        enabled: true
+        basePath: overlays/sardine

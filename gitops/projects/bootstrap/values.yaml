@@ -34,6 +34,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      ingress-nginx:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     storage:
       rook:
         enabled: false
