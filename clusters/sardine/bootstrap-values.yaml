@@ -1,5 +1,8 @@
 components:
   infra:
+    auth:
+      dex:
+        enabled: true
     management:
       argocd:
         enabled: true

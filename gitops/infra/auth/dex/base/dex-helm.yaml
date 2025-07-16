@@ -1,0 +1,110 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dex-gh
+  namespace: cluster-infra-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: infra
+  source:
+    repoURL: https://charts.dexidp.io
+    chart: dex
+    targetRevision: 0.23.0
+    helm:
+      valuesObject:
+        config:
+          issuer: https://auth.konst.fish
+
+          storage:
+            type: kubernetes
+            config:
+              inCluster: true
+
+          web:
+            # http: 0.0.0.0:9000
+            allowedOrigins:
+              - 'https://netbird.konst.fish'
+              - 'http://localhost:53000'
+
+          expiry:
+            deviceRequests: "2m"
+            idTokens: "1h"
+            signingKeys: "2160h"
+            refreshTokens:
+              disableRotation: false
+              reuseInterval: "4s"
+              validIfNotUsedFor: "168h" 
+              absoluteLifetime: "720h"
+
+          oauth2:
+            responseTypes: ["code", "token", "id_token"]
+            deviceAuthorizationEndpoint: true
+
+            skipApprovalScreen: true
+            alwaysShowLoginScreen: false
+
+          staticClients:
+            - id: netbird-dex
+              name: 'Netbird'
+              public: true
+              redirectURIs:
+                - 'https://netbird.konst.fish/#callback'
+                - 'http://localhost:53000'
+              trustedPeers: []
+              secretEnv: $NETBIRD_CLIENT_SECRET
+
+          connectors:
+          - type: github
+            id: github
+            name: GitHub
+            config:
+              clientID: $GITHUB_CLIENT_ID
+              clientSecret: $GITHUB_CLIENT_SECRET
+              redirectURI: 'https://auth.konst.fish/callback'
+
+              orgs:
+              - name: shoal-konst-fish
+                #teams:
+                #- facultative
+                #- obligate
+
+              loadAllGroups: false
+
+              teamNameField: slug
+
+              useLoginAsID: false
+
+        envFrom:
+          - secretRef:
+              name: dex-github-credentials
+          - secretRef:
+              name: dex-client
+
+        ingress:
+          enabled: true
+          className: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-dns
+            external-dns.alpha.kubernetes.io/hostname: "auth.konst.fish"
+            external-dns.alpha.kubernetes.io/target: "sardine.shoal.konst.fish"
+          hosts:
+            - host: auth.konst.fish
+              paths:
+                - path: /
+                  pathType: Prefix 
+          tls:
+            - hosts:
+                - auth.konst.fish
+              secretName: dex-cert
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dex-gh
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

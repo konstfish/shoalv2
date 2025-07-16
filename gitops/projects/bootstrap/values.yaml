@@ -50,6 +50,12 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+    auth:
+      dex:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     network:
       flannel:
         enabled: false

@@ -1,11 +1,17 @@
-netbird
+# tf
 terraform.tfvars
 terraform.tfstate*
-temp.yml
 .terraform
 .terraform.lock.hcl
+
+# etc
+temp.yml
 .env
 old
 etc
 kubeconfig
 secret.yaml
+
+# temp
+netbird
+netbird-operator
