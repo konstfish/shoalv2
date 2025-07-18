@@ -1,0 +1,150 @@
+---
+- name: Set up Hyperpixel
+  hosts: all
+  become: true
+  vars:
+    kiosk_url: "https://grafana.int.konst.fish/playlists/play/aesbe13utqxa8e?kiosk&_dash.hideTimePicker&_dash.hideVariables&_dash.hideLinks&theme=dark"
+    kiosk_user: "kiosk"
+    hostname: "kf-rpi-hyperpixel" # "kf-op-rpi-hyperpixel-01"
+  tasks:
+  # todo: clone https://github.com/pimoroni/hyperpixel4/tree/pi4, patch install script. official driver won't work :(
+  # for now just curl -sSL get.pimoroni.com/hyperpixel4-legacy
+
+  - name: set hostname
+    hostname:
+      name: "{{ hostname }}"
+
+  - name: update /etc/hosts
+    lineinfile:
+      path: /etc/hosts
+      regexp: '^127\.0\.1\.1'
+      line: "127.0.1.1    {{ hostname }}"
+      backup: yes
+
+  - name: ensure hostname persists in /etc/hostname
+    copy:
+      content: "{{ hostname }}\n"
+      dest: /etc/hostname
+      owner: root
+      group: root
+      mode: '0644'
+    notify: reboot system
+
+  - name: replace dtoverlay vc4-kms-v3d with vc4-fkms-v3d
+    lineinfile:
+      path: /boot/firmware/config.txt
+      regexp: '^dtoverlay=vc4-kms-v3d'
+      line: 'dtoverlay=vc4-fkms-v3d'
+    become: true
+    notify: reboot system
+
+  - name: apt update
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: Install x11 and chrome
+    apt:
+      name:
+        - xserver-xorg
+        - xinit
+        - chromium-browser
+        - unclutter
+        - xdotool
+      state: present
+
+  - name: ensure kiosk user exists
+    user:
+      name: "{{ kiosk_user }}"
+      groups: video,audio
+      shell: /bin/bash
+      create_home: yes
+      state: present
+
+  - name: kiosk startup script
+    copy:
+      content: |
+        #!/bin/bash
+        
+        # Disable screen blanking
+        xset s off
+        xset -dpms
+        xset s noblank
+        
+        # Hide mouse cursor
+        unclutter -idle 0.5 -root &
+        
+        # Start Chromium in kiosk mode
+        chromium-browser --noerrdialogs --disable-infobars --kiosk "{{ kiosk_url }}"
+      dest: /home/{{ kiosk_user }}/kiosk.sh
+      mode: '0755'
+      owner: "{{ kiosk_user }}"
+      group: "{{ kiosk_user }}"
+    notify: reboot system
+
+  - name: xinitrc for kiosk user
+    copy:
+      content: |
+        #!/bin/bash
+        exec /home/{{ kiosk_user }}/kiosk.sh
+      dest: /home/{{ kiosk_user }}/.xinitrc
+      mode: '0755'
+      owner: "{{ kiosk_user }}"
+      group: "{{ kiosk_user }}"
+
+  - name: getty servicd directory for autologin
+    file:
+      path: /etc/systemd/system/getty@tty1.service.d
+      state: directory
+      mode: '0755'
+
+  - name: autologin for kiosk user
+    copy:
+      content: |
+        [Service]
+        ExecStart=
+        ExecStart=-/sbin/agetty --autologin {{ kiosk_user }} --noclear %I $TERM
+      dest: /etc/systemd/system/getty@tty1.service.d/autologin.conf
+      mode: '0644'
+      backup: yes
+
+  - name: startx for kiosk user
+    blockinfile:
+      path: /home/{{ kiosk_user }}/.bash_profile
+      block: |
+        if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+          exec startx
+        fi
+      marker: "# {mark} ANSIBLE MANAGED BLOCK - Kiosk startx"
+      create: yes
+      owner: "{{ kiosk_user }}"
+      group: "{{ kiosk_user }}"
+    notify: reboot system
+
+  # crontabs
+  - name: crontab backlight off
+    cron:
+      name: "Turn off RPi backlight"
+      minute: "0"
+      hour: "0"
+      job: "bash -c \"echo 1 > /sys/class/backlight/rpi_backlight/bl_power\""
+      user: root
+      state: present
+
+  - name: crontab backlight on
+    cron:
+      name: "Turn on RPi backlight"
+      minute: "0"
+      hour: "16"
+      job: "bash -c \"echo 0 > /sys/class/backlight/rpi_backlight/bl_power\""
+      user: root
+      state: present
+
+  handlers:
+    - name: reboot system
+      ansible.builtin.reboot:
+        msg: "Rebooting"
+        connect_timeout: 5
+        reboot_timeout: 60
+      become: true
+      ignore_errors: true
