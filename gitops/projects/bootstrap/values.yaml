@@ -67,6 +67,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      multus:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     compute:
       kubevirt:
         enabled: false
