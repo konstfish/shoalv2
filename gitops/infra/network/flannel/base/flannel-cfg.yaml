@@ -9,7 +9,7 @@ metadata:
 data:
   cni-conf.json: |
     {
-      "name": "cbr0",
+      "name": "br1",
       "cniVersion": "1.0.0",
       "plugins": [
         {

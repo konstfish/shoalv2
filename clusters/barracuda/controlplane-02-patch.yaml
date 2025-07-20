@@ -2,17 +2,22 @@ machine:
   network:
     hostname: kf-op-barracuda-02
     interfaces:
-      - interface: enp3s0
+      - interface: br0
         dhcp: false
         addresses:
           - 10.0.1.102/24
+        bridge:
+          stp:
+            enabled: true
+          interfaces:
+              - enp3s0
         routes:
-          - network: 0.0.0.0/0
-            gateway: 10.0.1.254
+            - network: 0.0.0.0/0
+              gateway: 10.0.1.254
         vip:
           ip: 10.0.1.100
 
-      - interface: br0
+      - interface: br1
         addresses:
           - 10.250.250.2/24
         bridge:

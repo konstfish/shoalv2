@@ -7,6 +7,6 @@ metadata:
     argocd.argoproj.io/sync-wave: "2"
 spec:
   interfaces:
-    - enp3s0
+    - br0
   ipAddressPools:
     - pool
