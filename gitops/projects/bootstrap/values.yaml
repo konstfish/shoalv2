@@ -10,7 +10,7 @@ components:
       argocd:
         enabled: true
         type: kustomize
-        basePath: overlays/operator
+        basePath: base
         autoSync: true
       olm:
         enabled: true
