@@ -14,7 +14,6 @@ spec:
 
   sourceNamespaces: 
     - cluster-infra-argocd
-    - cluster-provisioning
   
   applicationSet:	
     enabled: true	

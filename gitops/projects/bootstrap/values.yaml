@@ -1,7 +1,7 @@
 repo: https://github.com/konstfish/shoalv2
 targetRevision: HEAD
 
-argoNamespace: cluster-provisioning
+argoNamespace: cluster-infra-argocd
 argoProject: provision
 
 components:
@@ -17,7 +17,7 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
-        targetNamespace: cluster-provisioning
+        targetNamespace: cluster-infra-argocd
       external-secrets:
         enabled: true
         type: kustomize

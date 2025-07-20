@@ -8,12 +8,12 @@ resources:
   # renovate: datasource=github-releases depName=argoproj/argo-cd
   - https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.11/manifests/core-install.yaml
 
-patches:
-  - target:
-      kind: ConfigMap
-      name: argocd-cmd-params-cm
-    patch: |-
-      - op: add
-        path: /data
-        value:
-          application.namespaces: "cluster-infra-argocd,cluster-provisioning"
+#patches:
+#  - target:
+#      kind: ConfigMap
+#      name: argocd-cmd-params-cm
+#    patch: |-
+#      - op: add
+#        path: /data
+#        value:
+#          application.namespaces: "cluster-infra-argocd,cluster-provisioning"

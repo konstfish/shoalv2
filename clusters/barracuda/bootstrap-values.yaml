@@ -7,7 +7,7 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
-        targetNamespace: cluster-provisioning
+        targetNamespace: cluster-infra-argocd
       argocd:
         enabled: true
         category: infra

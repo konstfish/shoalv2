@@ -75,7 +75,7 @@
         unclutter -idle 0.5 -root &
         
         # Start Chromium in kiosk mode
-        chromium-browser --noerrdialogs --disable-infobars --kiosk "{{ kiosk_url }}"
+        chromium-browser --noerrdialogs --disable-infobars --force-device-scale-factor=0.85 --hide-scrollbars --kiosk "{{ kiosk_url }}"
       dest: /home/{{ kiosk_user }}/kiosk.sh
       mode: '0755'
       owner: "{{ kiosk_user }}"
@@ -140,11 +140,17 @@
       user: root
       state: present
 
+  - name: crontab reboot
+    cron:
+      name: "Turn on RPi backlight"
+      special_time: reboot
+      job: "bash -c \"echo 0 > /sys/class/backlight/rpi_backlight/bl_power\""
+      user: root
+      state: present
+
   handlers:
     - name: reboot system
       ansible.builtin.reboot:
         msg: "Rebooting"
-        connect_timeout: 5
-        reboot_timeout: 60
       become: true
       ignore_errors: true

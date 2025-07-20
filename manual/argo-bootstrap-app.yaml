@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: bootstrap-app
-  namespace: cluster-provisioning
+  namespace: cluster-infra-argocd
 spec:
   project: provision
   source:
@@ -14,7 +14,7 @@ spec:
         - values.yaml
         - ../../../clusters/sardine/bootstrap-values.yaml
   destination:
-    namespace: 'cluster-provisioning'
+    namespace: 'cluster-infra-argocd'
     server: https://kubernetes.default.svc
   syncPolicy:
     automated: {}

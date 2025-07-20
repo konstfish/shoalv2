@@ -6,7 +6,7 @@ components:
     management:
       argocd:
         enabled: false
-        basePath: overlays/helm
+        basePath: base
     storage:
       local-path-provisioner:
         enabled: true
