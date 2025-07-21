@@ -142,7 +142,7 @@
 
   - name: crontab reboot
     cron:
-      name: "Turn on RPi backlight"
+      name: "Turn on RPi backlight on reboot"
       special_time: reboot
       job: "bash -c \"echo 0 > /sys/class/backlight/rpi_backlight/bl_power\""
       user: root
