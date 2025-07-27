@@ -23,6 +23,5 @@
   },
   "argocd": {
     "fileMatch": ["\\.yaml$"]
-  },
-  "logLevel": "debug"
+  }
 }
