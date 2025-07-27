@@ -19,6 +19,7 @@ components:
       #  enabled: true
       ingress-nginx-netbird:
         enabled: true
+        basePath: overlays/barracuda
     network:
       multus:
         enabled: true
