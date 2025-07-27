@@ -39,6 +39,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      ingress-nginx-netbird:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     storage:
       rook:
         enabled: false

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: cluster-infra-argocd
+spec:
+  source:
+    helm:
+      valuesObject:
+        controller:
+          replicaCount: 3
+          ingressClassByName: true
+          ingressClassResource:
+            controllerValue: k8s.io/ingress-nginx-netbird
+            name: nginx-netbird
+            default: true
+          ingressClass: nginx-netbird
+          extraArgs:
+            default-ssl-certificate: ingress-nginx-netbird/wildcard-internal-tls
+          service:
+            type: ClusterIP
+            annotations:
+              netbird.io/expose: "true"
+              netbird.io/policy: default
+              netbird.io/resource-name: barracuda-nginx
+              netbird.io/groups: barracuda-nginx-k8s
+  destination:
+    namespace: ingress-nginx-netbird

@@ -21,7 +21,7 @@ spec:
               enabled: false
   destination:
     server: https://kubernetes.default.svc
-    namespace: ingress-nginx
+    namespace: ingress-nginx-netbird
   syncPolicy:
     automated:
       prune: true

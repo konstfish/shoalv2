@@ -7,16 +7,14 @@ spec:
       "cniVersion": "0.3.0",
       "type": "bridge",
       "bridge": "br0",
-      "isGateway": true,
       "isDefaultGateway": false,
-      "forceAddress": false,
-      "ipMasq": true,
       "hairpinMode": true,
+      "ipMasq": false,
       "ipam": {
         "type": "host-local",
-        "subnet": "10.0.2.0/24",
-        "rangeStart": "10.0.2.1",
-        "rangeEnd": "10.0.2.250",
+        "subnet": "10.0.1.0/24",
+        "rangeStart": "10.0.1.200",
+        "rangeEnd": "10.0.1.250",
         "routes": [
           { "dst": "0.0.0.0/0" }
         ],

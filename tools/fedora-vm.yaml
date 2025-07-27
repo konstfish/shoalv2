@@ -30,11 +30,17 @@ spec:
               disk:
                 bus: virtio
           interfaces:
-          - name: podnet
-            masquerade: {}
+          #- name: podnet
+          #  masquerade: {}
+          - name: external
+            bridge: {}
+            macAddress: "02:00:00:00:00:01"
       networks:
-        - name: podnet
-          pod: {}
+        #- name: podnet
+        #  pod: {}
+        - name: external
+          multus:
+            networkName: default/bridge-conf
       volumes:
         - name: fedora-vm-pvc
           persistentVolumeClaim:
@@ -48,7 +54,12 @@ spec:
                   - type: physical
                     name: eth0
                     subnets:
-                      - type: dhcp
+                      - type: static
+                        address: 10.0.1.205/24
+                        gateway: 10.0.1.254
+                        dns_nameservers:
+                          - 1.1.1.1
+                          - 8.8.8.8
             userData: |-
               #cloud-config
               users:

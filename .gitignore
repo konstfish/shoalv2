@@ -13,5 +13,5 @@ kubeconfig
 secret.yaml
 
 # temp
-netbird
+gitops/infra/network/netbird
 netbird-operator
