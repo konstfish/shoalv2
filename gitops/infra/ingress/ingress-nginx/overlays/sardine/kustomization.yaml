@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - ns.yaml
 
 patches:
   - path: ingress-nginx.yaml
-  - path: ns.yaml

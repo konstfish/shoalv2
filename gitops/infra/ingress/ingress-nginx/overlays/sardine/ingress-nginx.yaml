@@ -16,3 +16,5 @@ spec:
           hostNetwork: true
           hostPort:
             enabled: true
+    syncOptions:
+      - ServerSideApply=true
