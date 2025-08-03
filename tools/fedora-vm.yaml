@@ -40,7 +40,7 @@ spec:
         #  pod: {}
         - name: external
           multus:
-            networkName: default/bridge-conf
+            networkName: kube-system/bridge-conf
       volumes:
         - name: fedora-vm-pvc
           persistentVolumeClaim:
@@ -54,12 +54,7 @@ spec:
                   - type: physical
                     name: eth0
                     subnets:
-                      - type: static
-                        address: 10.0.1.205/24
-                        gateway: 10.0.1.254
-                        dns_nameservers:
-                          - 1.1.1.1
-                          - 8.8.8.8
+                      - type: dhcp
             userData: |-
               #cloud-config
               users:
@@ -90,7 +85,7 @@ spec:
         storageClassName: "rook-ceph-file"
       source:
         http:
-          url: "https://fedora.mirror.wearetriple.com/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2"
+          url: "https://download.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2"
 ---
 apiVersion: v1
 kind: Service

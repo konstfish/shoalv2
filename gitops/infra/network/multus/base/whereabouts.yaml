@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: whereabouts-cni
+  namespace: cluster-infra-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: infra
+  source:
+    # https://github.com/helm/helm/issues/13466
+    repoURL: ghcr.io/k8snetworkplumbingwg
+    chart: whereabouts-chart
+    targetRevision: 0.9.2
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true

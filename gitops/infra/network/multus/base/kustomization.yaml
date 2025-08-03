@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   # renovate: datasource=github-releases depName=k8snetworkplumbingwg/multus-cni
   - https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/v4.2.1/deployments/multus-daemonset-thick.yml
+  - whereabouts.yaml
+  - network.yaml
 
 patches:
   - path: ds-netns-patch.yaml
