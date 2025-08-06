@@ -146,7 +146,7 @@ spec:
     # Rook will immediately stop configuring the cluster and only wait for the delete command.
     # If the empty string is set, Rook will not destroy any data on hosts during uninstall.
     confirmation: ""
-    wipeDevicesFromOtherClusters: true
+    wipeDevicesFromOtherClusters: false
     # sanitizeDisks represents settings for sanitizing OSD disks on cluster deletion
     sanitizeDisks:
       # method indicates if the entire disk should be sanitized or simply ceph's metadata

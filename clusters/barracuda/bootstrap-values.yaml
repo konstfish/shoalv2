@@ -6,6 +6,8 @@ components:
       argocd:
         enabled: true
     storage:
+      csi-snapshotter:
+        enabled: true
       rook:
         enabled: true
       local-path-provisioner:
