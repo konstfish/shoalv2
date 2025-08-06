@@ -1,0 +1,132 @@
+
+# talos
+ovsOvn:
+  disableModulesManagement: true
+  ovsDirectory: "/var/lib/openvswitch"
+  ovnDirectory: "/var/lib/ovn"
+
+cni:
+  mountToolingDirectory: false
+
+agent:
+  interface: "br1"
+  resources:
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+
+networking:
+  networkType: "geneve"
+  tunnelType: "geneve"
+  stack: "IPv4"
+  mtu: 8950
+  
+  pods:
+    subnetName: "ovn-default"
+    cidr:
+      v4: "10.244.0.0/16"
+    gateways:
+      v4: "10.244.0.1"
+  
+  services:
+    cidr:
+      v4: "10.96.0.0/12"
+  
+  join:
+    subnetName: "join"
+    cidr:
+      v4: "100.64.0.0/16"
+  
+  defaultVpcName: "ovn-cluster"
+  
+  enableMetrics: true
+  enableEipSnat: true
+  podNicType: "veth-pair"
+
+performance:
+  gcInterval: 360
+  inspectInterval: 20
+  ovsVsctlConcurrency: 100
+
+controller:
+  resources:
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
+    requests:
+      cpu: "200m"
+      memory: "200Mi"
+
+central:
+  resources:
+    limits:
+      cpu: "3"
+      memory: "4Gi"
+    requests:
+      cpu: "300m"
+      memory: "200Mi"
+
+monitor:
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "200Mi"
+    requests:
+      cpu: "200m"
+      memory: "200Mi"
+
+pinger:
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "400Mi"
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+  targets:
+    externalAddresses:
+      v4: "1.1.1.1"
+    externalDomain:
+      v4: "kube-ovn.io."
+
+features:
+  CHECK_GATEWAY: true
+  ENABLE_BIND_LOCAL_IP: true
+  ENABLE_EXTERNAL_VPC: true
+  ENABLE_KEEP_VM_IP: true
+  ENABLE_LB: true
+  ENABLE_NAT_GW: true
+  ENABLE_NP: true
+  LS_CT_SKIP_DST_LPORT_IPS: true
+  LS_DNAT_MOD_DL_DST: true
+  SECURE_SERVING: false
+  ENABLE_METRICS: true
+
+global:
+  images:
+    kubeovn:
+      repository: "kube-ovn"
+      tag: "v1.14.0"
+      support_arm: true
+      thirdparty: true
+      vpcRepository: "vpc-nat-gateway"
+  registry:
+    address: "docker.io/kubeovn"
+    imagePullSecrets: []
+
+image:
+  pullPolicy: "IfNotPresent"
+
+namespace: "kube-system"
+
+masterNodes: "10.250.250.1,10.250.250.2,10.250.250.3"  # Use br1 interface IPs for 10G tunnels
+masterNodesLabel: "kube-ovn/role=master"
+
+logging:
+  directory: "/var/log"
+
+kubelet:
+  directory: "/var/lib/kubelet"

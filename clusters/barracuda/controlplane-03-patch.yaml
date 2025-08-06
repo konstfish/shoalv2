@@ -2,20 +2,25 @@ machine:
   network:
     hostname: kf-op-barracuda-03
     interfaces:
-      - interface: br0
+      - interface: enp3s0
         dhcp: false
         addresses:
           - 10.0.1.103/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.1.254
+        vip:
+          ip: 10.0.1.100
+
+      - interface: br0
+        dhcp: false
+        addresses:
+          - 10.0.2.3/24
         bridge:
           stp:
             enabled: true
           interfaces:
-              - enp3s0
-        routes:
-            - network: 0.0.0.0/0
-              gateway: 10.0.1.254
-        vip:
-          ip: 10.0.1.100
+              - enp4s0
 
       - interface: br1
         addresses:
@@ -26,7 +31,7 @@ machine:
           interfaces:
               - enp5s0f0np0
               - enp5s0f1np1
-        mtu: 9000
+        mtu: 1500
 
   install:
     disk: /dev/nvme0n1

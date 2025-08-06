@@ -13,7 +13,8 @@
     {
       "fileMatch": ["^kustomization\\.yaml$"],
       "matchStrings": [
-        "# renovate: datasource=github-releases depName=(?<depName>.*?)\\n.*?download/(?<currentValue>.*?)/"
+        "# renovate: datasource=github-releases depName=(?<depName>.*?)\\n.*?download/(?<currentValue>.*?)/",
+        "# renovate: datasource=github-releases depName=(?<depName>.*?)\\n.*?ref=(?<currentValue>.*?)\\s"
       ],
       "datasourceTemplate": "github-releases"
     }

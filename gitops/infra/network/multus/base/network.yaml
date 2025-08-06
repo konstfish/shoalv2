@@ -14,9 +14,9 @@ spec:
       "ipMasq": false,
       "ipam": {
         "type": "whereabouts",
-        "range": "10.0.1.0/24",
-        "range_start": "10.0.1.200",
-        "range_end": "10.0.1.250",
+        "range": "10.0.2.0/24",
+        "range_start": "10.0.2.4",
+        "range_end": "10.0.2.253",
         "gateway": "10.0.1.254",
         "routes": [
           { "dst": "0.0.0.0/0" }

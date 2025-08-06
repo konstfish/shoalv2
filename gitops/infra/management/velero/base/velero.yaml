@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: velero
+  namespace: cluster-infra-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: infra
+  source:
+    repoURL: https://vmware-tanzu.github.io/helm-charts
+    chart: velero
+    targetRevision: 10.0.11
+    helm:
+      valuesObject:
+        credentials:
+          existingSecret: velero-hetzner-credentials
+
+        configuration:
+          features: EnableCSI
+          
+          backupStorageLocation:
+            - name: hetzner-backup-location
+              provider: aws
+              bucket: konstfish-barracuda-backup
+              default: true
+              config:
+                region: nbg1
+                s3ForcePathStyle: "true"
+                s3Url: https://nbg1.your-objectstorage.com
+
+          volumeSnapshotLocation:
+            - name: ceph-snapshot-location
+              default: true
+              provider: csi
+              config:
+                volumeSnapshotClass: csi-rbdplugin-snapclass
+
+        initContainers:
+          - name: velero-plugin-for-aws
+            image: velero/velero-plugin-for-aws:v1.8.0
+            volumeMounts:
+              - mountPath: /target
+                name: plugins
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cluster-velero
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
