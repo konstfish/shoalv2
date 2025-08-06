@@ -45,6 +45,11 @@ components:
         basePath: base
         autoSync: true
     storage:
+      csi-snapshotter:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
       rook:
         enabled: false
         type: kustomize
