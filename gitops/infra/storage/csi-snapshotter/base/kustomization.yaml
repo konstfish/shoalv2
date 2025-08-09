@@ -5,9 +5,9 @@ namespace: kube-system
 
 resources:
   # renovate: datasource=github-releases depName=kubernetes-csi/external-snapshotter
-  - https://github.com/kubernetes-csi/external-snapshotter/client/config/crd?ref=v8.1.0
+  - https://github.com/kubernetes-csi/external-snapshotter/client/config/crd?ref=v8.3.0
   # renovate: datasource=github-releases depName=kubernetes-csi/external-snapshotter
-  - https://github.com/kubernetes-csi/external-snapshotter/deploy/kubernetes/snapshot-controller?ref=v8.1.0
+  - https://github.com/kubernetes-csi/external-snapshotter/deploy/kubernetes/snapshot-controller?ref=v8.3.0
 
 patches:
   - target:

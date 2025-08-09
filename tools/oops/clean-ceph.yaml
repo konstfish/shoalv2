@@ -33,7 +33,7 @@ spec:
     hostPath:
       path: /run/udev
   nodeSelector:
-    kubernetes.io/hostname: kf-op-barracuda-02
+    kubernetes.io/hostname: kf-op-barracuda-03
   tolerations:
   - operator: Exists
   restartPolicy: Never
