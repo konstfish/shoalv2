@@ -15,7 +15,7 @@ machine:
       - interface: br0
         dhcp: false
         addresses:
-          - 10.0.2.1/24
+          - 10.10.1.1/24
         bridge:
           stp:
             enabled: true

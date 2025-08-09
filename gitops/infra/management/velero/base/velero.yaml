@@ -29,12 +29,12 @@ spec:
                 s3ForcePathStyle: "true"
                 s3Url: https://nbg1.your-objectstorage.com
 
-          volumeSnapshotLocation:
-            - name: ceph-snapshot-location
-              default: true
-              provider: csi
-              config:
-                volumeSnapshotClass: csi-rbdplugin-snapclass
+          #volumeSnapshotLocation:
+          #  - name: ceph-snapshot-location
+          #    default: true
+          #    provider: csi
+          #    config:
+          #      volumeSnapshotClass: csi-rbdplugin-snapclass
 
         initContainers:
           - name: velero-plugin-for-aws
@@ -43,6 +43,7 @@ spec:
               - mountPath: /target
                 name: plugins
 
+        # deployNodeAgent: true
   destination:
     server: https://kubernetes.default.svc
     namespace: cluster-velero

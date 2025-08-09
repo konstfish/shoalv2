@@ -15,7 +15,7 @@ machine:
       - interface: br0
         dhcp: false
         addresses:
-          - 10.0.2.3/24
+          - 10.10.1.3/24
         bridge:
           stp:
             enabled: true
@@ -34,4 +34,4 @@ machine:
         mtu: 1500
 
   install:
-    disk: /dev/nvme0n1
+    disk: /dev/nvme1n1

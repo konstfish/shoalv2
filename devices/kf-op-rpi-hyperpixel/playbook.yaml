@@ -3,7 +3,7 @@
   hosts: all
   become: true
   vars:
-    kiosk_url: "https://grafana.int.konst.fish/playlists/play/aesbe13utqxa8e?kiosk&_dash.hideTimePicker&_dash.hideVariables&_dash.hideLinks&theme=dark"
+    kiosk_url: "https://grafana.tetra.konst.fish/playlists/play/aeui38o16tfy8d?kiosk&_dash.hideTimePicker&_dash.hideVariables&_dash.hideLinks&theme=dark"
     kiosk_user: "kiosk"
     hostname: "kf-rpi-hyperpixel" # "kf-op-rpi-hyperpixel-01"
   tasks:
