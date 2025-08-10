@@ -3,5 +3,6 @@ kind: Kustomization
 
 resources:
   - ns.yaml
-  # - secret.yaml
+  #- secret.yaml
+  #- secret-kopia.yaml
   - velero.yaml

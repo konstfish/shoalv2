@@ -12,6 +12,8 @@ components:
         enabled: true
       local-path-provisioner:
         enabled: true
+      velero:
+        enabled: true
     ingress:
       cert-manager:
         enabled: true

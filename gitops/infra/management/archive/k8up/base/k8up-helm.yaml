@@ -36,6 +36,11 @@ spec:
                 secretKeyRef:
                   name: k8up-global-s3-credentials
                   key: endpoint
+            - name: BACKUP_GLOBALREPOPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: k8up-global-s3-credentials
+                  key: RESTIC_PASSWORD
   destination:
     server: https://kubernetes.default.svc
     namespace: k8up

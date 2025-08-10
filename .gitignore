@@ -11,6 +11,7 @@ old
 etc
 kubeconfig
 secret.yaml
+secret-kopia.yaml
 
 # temp
 gitops/infra/network/netbird

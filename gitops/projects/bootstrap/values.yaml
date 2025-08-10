@@ -23,6 +23,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      velero:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     ingress:
       cert-manager:
         enabled: true

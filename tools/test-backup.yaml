@@ -1,6 +1,0 @@
-apiVersion: k8up.io/v1
-kind: Backup
-metadata:
-  name: pvc-backup-onetime
-  namespace: default
-spec: {}

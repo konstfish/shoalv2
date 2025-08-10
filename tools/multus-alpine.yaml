@@ -3,7 +3,8 @@ kind: Pod
 metadata:
   name: samplepod
   annotations:
-    k8s.v1.cni.cncf.io/networks: bridge-conf
+    k8s.v1.cni.cncf.io/networks: kube-system/bridge-conf
+    # k8s.v1.cni.cncf.io/networks: '[{"name": "kube-system/bridge-conf", "ips": ["10.10.1.6/24"]}]'
 spec:
   containers:
   - name: samplepod
