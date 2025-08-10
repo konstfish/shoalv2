@@ -18,6 +18,11 @@ components:
         basePath: base
         autoSync: true
         targetNamespace: cluster-infra-argocd
+      sealed-secrets:
+        enabled: true
+        type: kustomize
+        basePath: base
+        autoSync: true
       external-secrets:
         enabled: true
         type: kustomize
