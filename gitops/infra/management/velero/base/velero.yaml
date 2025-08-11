@@ -43,7 +43,7 @@ spec:
               - mountPath: /target
                 name: plugins
           - name: kubevirt-velero-plugin
-            image: quay.io/kubevirt/kubevirt-velero-plugin:v0.2.0
+            image: quay.io/kubevirt/kubevirt-velero-plugin:v0.8.0
             volumeMounts:
               - mountPath: /target
                 name: plugins
