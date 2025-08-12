@@ -5,14 +5,14 @@ components:
         enabled: true
       argocd:
         enabled: true
+      velero:
+        enabled: true
     storage:
       csi-snapshotter:
         enabled: true
       rook:
         enabled: true
       local-path-provisioner:
-        enabled: true
-      velero:
         enabled: true
     ingress:
       cert-manager:
