@@ -7,4 +7,4 @@ spec:
   channel: stable
   name: kiali
   source: operatorhubio-catalog
-  sourceNamespace: operator-lifecycle-manager
+  sourceNamespace: olm

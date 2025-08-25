@@ -7,6 +7,6 @@ spec:
   channel: alpha 
   name: tempo-operator
   source: operatorhubio-catalog
-  sourceNamespace: operator-lifecycle-manager
+  sourceNamespace: olm
   installPlanApproval: Manual
   startingCSV: tempo-operator.v0.10.0

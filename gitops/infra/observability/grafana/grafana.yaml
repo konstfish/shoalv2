@@ -7,4 +7,4 @@ spec:
   channel: v5
   name: grafana-operator
   source: operatorhubio-catalog
-  sourceNamespace: operator-lifecycle-manager
+  sourceNamespace: olm

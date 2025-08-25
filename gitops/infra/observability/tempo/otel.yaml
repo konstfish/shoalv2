@@ -7,4 +7,4 @@ spec:
   channel: alpha
   name: opentelemetry-operator
   source: operatorhubio-catalog
-  sourceNamespace: operator-lifecycle-manager
+  sourceNamespace: olm
