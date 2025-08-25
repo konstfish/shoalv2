@@ -5,7 +5,7 @@ components:
         enabled: true
       operators:
         enabled: true
-        type: overlays/barracuda
+        basePath: overlays/barracuda
       argocd:
         enabled: true
       velero:

@@ -22,7 +22,6 @@ spec:
   syncPolicy:
     syncOptions:
       - ServerSideApply=true
-      - SkipDryRunOnMissingResource=true
   {{- if $component.autoSync }}
     automated: {}
   {{- end }}
