@@ -2,9 +2,7 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: prometheus
-  namespace: operator-prometheus
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
+  namespace: cluster-operator-prometheus
 spec: 
   channel: beta
   name: prometheus

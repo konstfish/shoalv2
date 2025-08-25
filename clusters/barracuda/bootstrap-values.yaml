@@ -3,6 +3,9 @@ components:
     management:
       olm:
         enabled: true
+      operators:
+        enabled: true
+        type: overlays/barracuda
       argocd:
         enabled: true
       velero:

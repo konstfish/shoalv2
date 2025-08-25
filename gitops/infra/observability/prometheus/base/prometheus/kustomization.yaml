@@ -1,4 +1,4 @@
-namespace: observability-monitoring
+namespace: cluster-observability-monitoring
 
 resources:
   - ns.yaml
