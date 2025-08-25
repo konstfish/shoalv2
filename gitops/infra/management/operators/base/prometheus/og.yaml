@@ -1,0 +1,8 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: prometheus-og
+  namespace: cluster-operator-prometheus
+spec:
+  targetNamespaces:
+  - cluster-operator-prometheus

@@ -1,3 +1,4 @@
 resources:
   - ns.yaml
   - prometheus.yaml
+  - og.yaml
