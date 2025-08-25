@@ -54,6 +54,12 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+    observability:
+      prometheus:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     storage:
       csi-snapshotter:
         enabled: false

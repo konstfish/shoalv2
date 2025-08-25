@@ -1,0 +1,8 @@
+namespace: observability-monitoring
+
+resources:
+  - sidecar
+  - querier
+  - store-gateway
+  - querier-frontend
+  - compactor

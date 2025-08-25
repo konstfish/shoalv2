@@ -32,3 +32,7 @@ components:
     compute:
       kubevirt:
         enabled: true
+    observability:
+      prometheus:
+        enabled: true
+        basePath: overlays/barracuda
