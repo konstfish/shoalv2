@@ -1,0 +1,19 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: ds-prometheus
+spec:
+  instanceSelector:
+    matchLabels:
+      app: "grafana"
+  datasource:
+    name: prometheus
+    type: prometheus
+    uid: prometheus1
+    access: proxy
+    basicAuth: false
+    url: http://prometheus-operated.cluster-observability-monitoring.svc:9090
+    isDefault: false
+    jsonData:
+      "tlsSkipVerify": true
+      "timeInterval": "5s"

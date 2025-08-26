@@ -39,3 +39,6 @@ components:
       prometheus:
         enabled: true
         basePath: overlays/barracuda
+      grafana:
+        enabled: true
+        basePath: overlays/barracuda

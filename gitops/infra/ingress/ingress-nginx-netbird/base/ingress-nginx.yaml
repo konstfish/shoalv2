@@ -31,9 +31,9 @@ spec:
               netbird.io/resource-name: netbird-nginx
               netbird.io/groups: netbird-nginx-k8s
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
-              enabled: false
+              enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx-netbird

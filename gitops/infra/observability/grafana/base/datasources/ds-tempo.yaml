@@ -1,0 +1,36 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: ds-tempo
+spec:
+  instanceSelector:
+    matchLabels:
+      app: "grafana"
+  valuesFrom:
+    - targetPath: secureJsonData.httpHeaderValue1
+      valueFrom:
+        secretKeyRef:
+          key: tenants
+          name: tenant-query-list
+  datasource:
+    name: tempo
+    type: tempo
+    uid: tempo1
+    access: proxy
+    basicAuth: false
+    url: http://tempo-tempo-query-frontend.monitoring.svc:3200
+    isDefault: false
+    jsonData:
+      tlsSkipVerify: true
+      search:
+        hide: false
+      nodeGraph:
+          enabled: true
+      serviceMap:
+          datasourceUid: prometheus1
+      httpHeaderName1: X-Scope-OrgID
+      queryTimeout: 5m
+      timeout: 60
+      manageAlerts: false
+    secureJsonData:
+      httpHeaderValue1: "${tenants}"

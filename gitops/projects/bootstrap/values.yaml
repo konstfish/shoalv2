@@ -65,6 +65,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      grafana:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     storage:
       csi-snapshotter:
         enabled: false

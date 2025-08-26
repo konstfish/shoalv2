@@ -1,2 +1,3 @@
 resources:
   - ../../base/prometheus
+  - ../../base/grafana
