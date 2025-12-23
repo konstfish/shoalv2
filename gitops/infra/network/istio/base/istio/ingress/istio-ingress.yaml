@@ -1,27 +1,40 @@
-apiVersion: helm.cattle.io/v1
-kind: HelmChart
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
   name: istio-ingress
-  namespace: istio-ingress
+  namespace: cluster-infra-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
-  chart: gateway
-  repo: https://istio-release.storage.googleapis.com/charts
-  targetNamespace: istio-ingress
-  version: "1.23.2"
-  valuesContent: |
-    defaults:
-      labels:
-        app: istio-ingress
-        istio: ingressgateway
-        Istio: ingressgateway
-        release: istio-ingress
-      service:
-        annotations:
-          load-balancer.hetzner.cloud/location: nbg1
-          load-balancer.hetzner.cloud/name: ingress-istio-tetra
-          load-balancer.hetzner.cloud/use-private-ip: "true"
-          load-balancer.hetzner.cloud/uses-proxyprotocol: "false"
-      autoscaling:
-        enabled: true
-        minReplicas: 1
-        maxReplicas: 3
+  project: infra
+  source:
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: gateway
+    targetRevision: "1.23.2"
+    helm:
+      valuesObject:
+        defaults:
+          labels:
+            app: istio-ingress
+            istio: ingressgateway
+            Istio: ingressgateway
+            release: istio-ingress
+          #service:
+            #annotations:
+            #  load-balancer.hetzner.cloud/location: nbg1
+            #  load-balancer.hetzner.cloud/name: ingress-istio-tetra
+            #  load-balancer.hetzner.cloud/use-private-ip: "true"
+            #  load-balancer.hetzner.cloud/uses-proxyprotocol: "false"
+          autoscaling:
+            enabled: true
+            minReplicas: 1
+            maxReplicas: 3
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-ingress
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true

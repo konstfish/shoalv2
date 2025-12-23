@@ -32,6 +32,8 @@ components:
         enabled: true
       cilium-lb:
         enabled: true
+      istio:
+        enabled: true
       multus:
         enabled: true
       metallb:

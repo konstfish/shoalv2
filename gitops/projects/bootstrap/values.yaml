@@ -98,6 +98,16 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      cilium-lb:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
+      istio:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
       metallb:
         enabled: false
         type: kustomize

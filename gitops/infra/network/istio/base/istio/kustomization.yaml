@@ -2,6 +2,6 @@ resources:
   - ns.yaml
   - istio-base.yaml
   - istiod.yaml
-  - monitoring.yaml
+  #- monitoring.yaml
   - ingress
-  - egress
+  #- egress

@@ -20,7 +20,6 @@ spec:
           image: ghcr.io/konstfish/alex-demo:latest
           ports:
             - containerPort: 8080
-              hostPort: 8080
           resources:
             requests:
               memory: "64Mi"
@@ -29,17 +28,16 @@ spec:
               memory: "128Mi"
               cpu: "500m"
 ---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: nginx
-#  namespace: default
-#  annotations:
-#    metallb.io/loadBalancerIPs: 10.0.1.130
-#spec:
-#  ports:
-#    - port: 80
-#      targetPort: 8080
-#  selector:
-#    app: nginx
-#  type: LoadBalancer
+apiVersion: v1
+kind: Service
+metadata:
+ name: nginx
+ namespace: default
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: nginx
+  type: LoadBalancer
+  loadBalancerIP: 10.0.1.130
