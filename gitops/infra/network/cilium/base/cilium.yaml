@@ -33,8 +33,6 @@ spec:
         bgpControlPlane:
           enabled: false
 
-        l2announcements:
-          enabled: true
 
         externalIPs:
           enabled: true
@@ -51,6 +49,17 @@ spec:
 
         k8sServiceHost: 127.0.0.1
         k8sServicePort: 7445
+
+        # QPS = #services * (1 / leaseRenewDeadline)
+        k8sClientRateLimit:
+          qps: 100
+          burst: 200
+
+        l2announcements:
+          enabled: true
+          leaseDuration: 3s
+          leaseRenewDeadline: 2s
+          leaseRetryPeriod: 200ms
 
         ipv6:
           enabled: false
