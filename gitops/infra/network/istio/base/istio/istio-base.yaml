@@ -1,0 +1,12 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: istio-base
+  namespace: istio-system
+spec:
+  chart: base
+  repo: https://istio-release.storage.googleapis.com/charts
+  targetNamespace: istio-system
+  version: "1.23.2"
+  valuesContent: |
+    defaultRevision: default

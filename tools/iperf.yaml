@@ -27,7 +27,7 @@ spec:
           - key: app
             operator: In
             values:
-            - iperf-server  # This will avoid nodes with iperf-server pods
+            - iperf-server
         topologyKey: kubernetes.io/hostname
   containers:
     - name: iperf

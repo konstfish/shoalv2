@@ -93,6 +93,11 @@ components:
         basePath: base
         autoSync: true
     network:
+      clilium:
+        enabled: true
+        type: kustomize
+        basePath: base
+        autoSync: true
       flannel:
         enabled: false
         type: kustomize

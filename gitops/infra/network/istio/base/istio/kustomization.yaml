@@ -1,0 +1,7 @@
+resources:
+  - ns.yaml
+  - istio-base.yaml
+  - istiod.yaml
+  - monitoring.yaml
+  - ingress
+  - egress

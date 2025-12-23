@@ -28,6 +28,8 @@ components:
         enabled: true
         basePath: overlays/barracuda
     network:
+      clilium:
+        enabled: true
       multus:
         enabled: true
       metallb:

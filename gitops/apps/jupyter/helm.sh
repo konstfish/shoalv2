@@ -1,0 +1,1 @@
+helm install jupyter jupyterhub/jupyterhub --values values.yaml

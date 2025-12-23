@@ -1,0 +1,48 @@
+apiVersion: kiali.io/v1alpha1
+kind: Kiali
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  external_services:
+    istio:
+      root_namespace: istio-system
+      ingress_gateway_namespace: istio-ingress
+      egress_gateway_namespace: istio-egress
+    prometheus:
+      url: "http://thanos-querier.monitoring.svc:9090"
+    grafana:
+      enabled: true
+      internal_url: 'http://grafana-service.monitoring.svc:3000'
+      external_url: 'https://grafana.tetra.konst.fish'
+  auth:
+    strategy: anonymous
+  deployment:
+    view_only_mode: true
+    ingress:
+      enabled: true
+      override_yaml:
+        metadata:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-dns"
+            external-dns.alpha.kubernetes.io/hostname: "kiali.tetra.konst.fish"
+            nginx.ingress.kubernetes.io/auth-signin: https://sson.konst.fish/oauth2/start?rd=$scheme://$host$request_uri
+            nginx.ingress.kubernetes.io/auth-url: https://sson.konst.fish/oauth2/auth
+            nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Request-Email,X-Auth-Request-Groups,X-Auth-Request-User
+        spec:
+          ingressClassName: nginx
+          tls:
+          - hosts:
+            - kiali.tetra.konst.fish
+            secretName: kiali-tls
+          rules:
+          - host: "kiali.tetra.konst.fish"
+            http:
+              paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: kiali
+                    port:
+                      number: 20001
