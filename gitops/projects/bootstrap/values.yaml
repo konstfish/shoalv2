@@ -93,7 +93,7 @@ components:
         basePath: base
         autoSync: true
     network:
-      clilium:
+      cilium:
         enabled: true
         type: kustomize
         basePath: base
