@@ -94,11 +94,6 @@ components:
         autoSync: true
     network:
       cilium:
-        enabled: true
-        type: kustomize
-        basePath: base
-        autoSync: true
-      flannel:
         enabled: false
         type: kustomize
         basePath: base

@@ -28,7 +28,7 @@ components:
         enabled: true
         basePath: overlays/barracuda
     network:
-      clilium:
+      cilium:
         enabled: true
       multus:
         enabled: true
