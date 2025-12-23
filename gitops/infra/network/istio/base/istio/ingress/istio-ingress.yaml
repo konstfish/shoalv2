@@ -13,22 +13,21 @@ spec:
     targetRevision: "1.28.2"
     helm:
       valuesObject:
-        defaults:
-          labels:
-            app: istio-ingress
-            istio: ingressgateway
-            Istio: ingressgateway
-            release: istio-ingress
-          #service:
-            #annotations:
-            #  load-balancer.hetzner.cloud/location: nbg1
-            #  load-balancer.hetzner.cloud/name: ingress-istio-tetra
-            #  load-balancer.hetzner.cloud/use-private-ip: "true"
-            #  load-balancer.hetzner.cloud/uses-proxyprotocol: "false"
-          autoscaling:
-            enabled: true
-            minReplicas: 1
-            maxReplicas: 3
+        labels:
+          app: istio-ingress
+          istio: ingressgateway
+          Istio: ingressgateway
+          release: istio-ingress
+        #service:
+          #annotations:
+          #  load-balancer.hetzner.cloud/location: nbg1
+          #  load-balancer.hetzner.cloud/name: ingress-istio-tetra
+          #  load-balancer.hetzner.cloud/use-private-ip: "true"
+          #  load-balancer.hetzner.cloud/uses-proxyprotocol: "false"
+        autoscaling:
+          enabled: true
+          minReplicas: 1
+          maxReplicas: 3
   destination:
     server: https://kubernetes.default.svc
     namespace: istio-ingress
