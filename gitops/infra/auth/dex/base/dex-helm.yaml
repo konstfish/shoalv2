@@ -58,6 +58,7 @@ spec:
               public: false
               redirectURIs:
                 - 'https://grafana.barracuda.net.konst.fish/oauth2/callback'
+                - 'https://kiali.barracuda.net.konst.fish/oauth2/callback'
               trustedPeers: []
               secretEnv: OAUTH2_PROXY_CLIENT_SECRET
 

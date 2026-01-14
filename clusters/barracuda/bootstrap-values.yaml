@@ -37,6 +37,7 @@ components:
         enabled: true
       istio:
         enabled: true
+        basePath: overlays/barracuda
       multus:
         enabled: true
       metallb:

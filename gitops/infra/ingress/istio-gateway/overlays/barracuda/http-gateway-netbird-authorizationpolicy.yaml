@@ -1,7 +1,7 @@
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: grafana-auth-policy
+  name: auth-policy
 spec:
   selector:
     matchLabels:
@@ -14,3 +14,4 @@ spec:
     - operation:
         hosts:
         - "grafana.barracuda.net.konst.fish"
+        - "kiali.barracuda.net.konst.fish"
