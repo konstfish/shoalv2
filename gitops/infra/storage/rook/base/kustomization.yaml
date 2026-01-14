@@ -5,6 +5,6 @@ resources:
   - rook-ns.yaml
   - rook-helm.yaml
   - rook-cluster.yaml
-  - rook-dashboard-ingress.yaml
+  - rook-dashboard-gateway.yaml
   - storage/block-replicated.yaml
   - storage/file-replicated.yaml

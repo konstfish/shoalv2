@@ -53,6 +53,13 @@ spec:
                 - 'http://localhost:53000'
               trustedPeers: []
               secretEnv: $NETBIRD_CLIENT_SECRET
+            - id: oauth2-proxy
+              name: 'oauth2-proxy'
+              public: false
+              redirectURIs:
+                - 'https://grafana.barracuda.net.konst.fish/oauth2/callback'
+              trustedPeers: []
+              secretEnv: OAUTH2_PROXY_CLIENT_SECRET
 
           connectors:
           - type: github
@@ -80,6 +87,8 @@ spec:
               name: dex-github-credentials
           - secretRef:
               name: dex-client
+          - secretRef:
+              name: dex-oauth2-proxy
 
         ingress:
           enabled: true

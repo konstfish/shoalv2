@@ -1,0 +1,5 @@
+resources:
+  - ns.yaml
+  - httproute.yaml
+  - oauth2-proxy-negative.yaml
+  - oauth2-proxy-zero.yaml

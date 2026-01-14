@@ -6,6 +6,7 @@ namespace: istio-ingress
 resources:
   - ../../base
   - http-gateway-netbird.yaml
+  - http-gateway-netbird-ap.yaml
 
 patches:
   - path: wildcard-internal-tls.yaml

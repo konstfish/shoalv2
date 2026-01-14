@@ -2,7 +2,7 @@ namespace: cluster-observability-grafana
 
 resources:
   - ns.yaml
-  - ingress.yaml
+  - gateway.yaml
   - grafana.yaml
   - datasources
   - dashboards

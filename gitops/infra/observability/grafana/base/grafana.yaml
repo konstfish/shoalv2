@@ -20,7 +20,7 @@ spec:
       enable_login_token: 'false'
       header_name: X-Auth-Request-Email
       headers: >-
-        Name:X-Auth-Request-User Email:X-Auth-Request-Email
+        Name:x-auth-request-preferred-username Email:X-Auth-Request-Email
     users:
       auto_assign_org_role: Admin
       default_theme: light

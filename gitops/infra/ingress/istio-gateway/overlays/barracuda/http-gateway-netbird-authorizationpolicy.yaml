@@ -1,0 +1,16 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: grafana-auth-policy
+spec:
+  selector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: http-gateway-netbird
+  action: CUSTOM
+  provider:
+    name: "oauth2-proxy-negative"
+  rules:
+  - to:
+    - operation:
+        hosts:
+        - "grafana.barracuda.net.konst.fish"
