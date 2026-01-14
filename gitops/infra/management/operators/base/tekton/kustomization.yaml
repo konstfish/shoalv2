@@ -1,0 +1,4 @@
+resources:
+  - ns.yaml
+  - tekton.yaml
+  - og.yaml

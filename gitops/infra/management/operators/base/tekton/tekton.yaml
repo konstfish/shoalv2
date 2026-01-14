@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: tektoncd
+  namespace: cluster-operator-tekton
+spec:
+  channel: alpha
+  name: tektoncd-operator
+  source: operatorhubio-catalog
+  sourceNamespace: olm
