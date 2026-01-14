@@ -48,3 +48,6 @@ components:
       grafana:
         enabled: true
         basePath: overlays/barracuda
+    pipelines:
+      tekton:
+        enabled: false

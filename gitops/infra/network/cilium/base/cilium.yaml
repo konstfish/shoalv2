@@ -52,14 +52,14 @@ spec:
 
         # QPS = #services * (1 / leaseRenewDeadline)
         k8sClientRateLimit:
-          qps: 100
-          burst: 200
+          qps: 50
+          burst: 100
 
         l2announcements:
           enabled: true
-          leaseDuration: 3s
-          leaseRenewDeadline: 2s
-          leaseRetryPeriod: 200ms
+          leaseDuration: 10s
+          leaseRenewDeadline: 7s
+          leaseRetryPeriod: 2s
 
         ipv6:
           enabled: false

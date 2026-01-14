@@ -1,0 +1,4 @@
+namespace: pipelines-as-code
+
+resources:
+  - https://raw.githubusercontent.com/openshift-pipelines/pipelines-as-code/stable/release.k8s.yaml

@@ -3,6 +3,3 @@ kind: OperatorGroup
 metadata:
   name: tekton-og
   namespace: cluster-operator-tekton
-spec:
-  targetNamespaces:
-  - cluster-operator-tekton
