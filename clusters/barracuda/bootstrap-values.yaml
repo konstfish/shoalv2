@@ -27,6 +27,9 @@ components:
       ingress-nginx-netbird:
         enabled: true
         basePath: overlays/barracuda
+      istio-gateway:
+        enabled: true
+        basePath: overlays/barracuda
     network:
       cilium:
         enabled: true

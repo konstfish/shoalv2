@@ -59,6 +59,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      istio-gateway:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     observability:
       prometheus:
         enabled: false
