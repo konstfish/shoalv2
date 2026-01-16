@@ -14,7 +14,7 @@ spec:
     #targetRevision: 0.1.15
     repoURL: https://github.com/konstfish/netbird-kubernetes-operator
     path: helm/kubernetes-operator
-    targetRevision: main
+    targetRevision: tempbr
     helm:
       valuesObject:
         ingress:
