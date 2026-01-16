@@ -11,7 +11,7 @@ spec:
           service:
             annotations:
               netbird.io/expose: "true"
-              netbird.io/policy: default
+              netbird.io/policy: proxy-access
               netbird.io/resource-name: barracuda-nginx
               netbird.io/groups: barracuda-nginx-k8s
   destination:

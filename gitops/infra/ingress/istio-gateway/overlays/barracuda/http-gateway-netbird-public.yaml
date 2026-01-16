@@ -1,14 +1,14 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: http-gateway-netbird
+  name: http-gateway-netbird-public
 spec:
   infrastructure:
     annotations:
       netbird.io/expose: "true"
-      netbird.io/policy: proxy-access
-      netbird.io/resource-name: barracuda-gateway
-      netbird.io/groups: barracuda-gateway-k8s
+      netbird.io/policy: proxy-access-public
+      netbird.io/resource-name: barracuda-gateway-public
+      netbird.io/groups: barracuda-gateway-k8s-public
     parametersRef:
       group: ""
       kind: ConfigMap
@@ -34,13 +34,3 @@ spec:
       certificateRefs:
       - name: wildcard-internal-tls
         kind: Secret
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: netbird-gateway-service-config
-  namespace: default
-data:
-  service: |
-    spec:
-      type: ClusterIP

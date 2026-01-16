@@ -42,6 +42,9 @@ components:
         enabled: true
       metallb:
         enabled: false
+      netbird-operator:
+        enabled: true
+        basePath: overlays/barracuda
     compute:
       kubevirt:
         enabled: true

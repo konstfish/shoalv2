@@ -4,20 +4,22 @@ metadata:
   name: kiali
   namespace: istio-system
 spec:
-  external_services:
-    istio:
-      root_namespace: istio-system
-      ingress_gateway_namespace: istio-ingress
-      egress_gateway_namespace: istio-egress
-    prometheus:
-      url: "http://prometheus-operated.cluster-observability-monitoring.svc:9090"
-    grafana:
-      enabled: true
-      internal_url: 'http://grafana-service.cluster-observability-grafana.svc:3000'
-      external_url: 'https://grafana.barracuda.net.konst.fish'
   auth:
     strategy: anonymous
   deployment:
     view_only_mode: true
     ingress:
       enabled: false
+  external_services:
+    istio:
+      root_namespace: istio-system
+#      ingress_gateway_namespace: istio-ingress
+#      egress_gateway_namespace: istio-egress
+    prometheus:
+      url: "http://prometheus-operated.cluster-observability-monitoring.svc:9090"
+    grafana:
+      enabled: false
+      internal_url: 'http://grafana-service.cluster-observability-grafana.svc:3000'
+      external_url: 'https://grafana.barracuda.net.konst.fish'
+  
+# TODO: there's a newer version of this https://github.com/kiali/kiali-operator/blob/master/crd-docs/cr/kiali.io_v1alpha1_kiali.yaml

@@ -27,7 +27,7 @@ spec:
             type: ClusterIP
             annotations:
               netbird.io/expose: "true"
-              netbird.io/policy: default
+              netbird.io/policy: proxy-access
               netbird.io/resource-name: netbird-nginx
               netbird.io/groups: netbird-nginx-k8s
           metrics:

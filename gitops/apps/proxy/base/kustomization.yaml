@@ -1,0 +1,6 @@
+namespace: onprem-proxy
+
+resources:
+  - ns.yaml
+  - jellyfin
+  - medfish

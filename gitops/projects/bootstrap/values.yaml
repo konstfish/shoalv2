@@ -123,6 +123,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      netbird-operator:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     compute:
       kubevirt:
         enabled: false
