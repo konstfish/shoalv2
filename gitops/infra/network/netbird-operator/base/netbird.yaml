@@ -8,9 +8,9 @@ metadata:
 spec:
   project: infra
   source:
-    repoURL: https://netbirdio.github.io/kubernetes-operator
+    repoURL: https://netbirdio.github.io/helms
     chart: kubernetes-operator
-    targetRevision: v0.2.0
+    targetRevision: 0.1.15
     helm:
       valuesObject:
         ingress:
