@@ -8,9 +8,13 @@ metadata:
 spec:
   project: infra
   source:
-    repoURL: https://netbirdio.github.io/helms
-    chart: kubernetes-operator
-    targetRevision: 0.1.15
+    # TODO: migrate this back
+    #repoURL: https://netbirdio.github.io/helms
+    #chart: kubernetes-operator
+    #targetRevision: 0.1.15
+    repoURL: https://github.com/konstfish/netbird-kubernetes-operator
+    path: helm/kubernetes-operator
+    targetRevision: main
     helm:
       valuesObject:
         ingress:
@@ -67,9 +71,9 @@ spec:
     server: https://kubernetes.default.svc
     namespace: netbird-operator
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    #automated:
+    #  prune: true
+    #  selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
