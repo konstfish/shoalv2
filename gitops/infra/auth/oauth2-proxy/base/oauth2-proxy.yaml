@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: oauth2-proxy-negative
+  name: oauth2-proxy
   namespace: cluster-infra-argocd
   annotations:
     argocd.argoproj.io/sync-wave: "2"
@@ -14,18 +14,18 @@ spec:
     helm:
       valuesObject:
         config:
-          existingSecret: oauth2-proxy-negative
+          existingSecret: oauth2-proxy
         extraArgs:
           provider: "oidc"
           oidc-issuer-url: "https://auth.konst.fish"
           oidc-extra-audience: "oauth2-proxy"
           http-address: "0.0.0.0:4180"
           upstream: "static://200"
-          allowed-group: "shoal-konst-fish:facultative"
+          #allowed-group: "shoal-konst-fish:facultative"
           email-domain: "*"
           skip-provider-button: true
-          cookie-domain: ".konst.fish"
-          whitelist-domain: ".konst.fish:*"
+          cookie-domain: ".net.konst.fish"
+          whitelist-domain: ".net.konst.fish:*"
           reverse-proxy: true
           set-xauthrequest: true
           set-authorization-header: true

@@ -31,8 +31,7 @@ spec:
               name: "Barracuda Kubernetes API Access Policy"
               sourceGroups:
                 - shoal-konst-fish:facultative
-              ports:
-                - 443
+              ports: []
               protocols:
                 - tcp
               bidirectional: false
@@ -40,20 +39,8 @@ spec:
               name: "Barracuda Proxy Access Policy"
               sourceGroups:
                 - shoal-konst-fish:facultative
-              ports:
-                - 80
-                - 443
-              protocols:
-                - tcp
-              bidirectional: false
-            proxy-access-public:
-              name: "Barracuda Proxy Access Public Policy"
-              sourceGroups:
-                - shoal-konst-fish:facultative
                 - shoal-konst-fish:obligate
-              ports:
-                - 80
-                - 443
+              ports: []
               protocols:
                 - tcp
               bidirectional: false

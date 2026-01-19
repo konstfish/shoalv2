@@ -9,6 +9,7 @@ spec:
       netbird.io/policy: proxy-access
       netbird.io/resource-name: barracuda-gateway
       netbird.io/groups: barracuda-gateway-k8s
+      netbird.io/policy-ports: "80,443"
     parametersRef:
       group: ""
       kind: ConfigMap
