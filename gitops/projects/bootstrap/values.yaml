@@ -97,6 +97,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      oauth2-proxy:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     network:
       cilium:
         enabled: false

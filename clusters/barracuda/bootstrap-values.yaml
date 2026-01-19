@@ -45,6 +45,10 @@ components:
       netbird-operator:
         enabled: true
         basePath: overlays/barracuda
+    auth:
+      oauth2-proxy:
+        enabled: true
+        basePath: base
     compute:
       kubevirt:
         enabled: true
