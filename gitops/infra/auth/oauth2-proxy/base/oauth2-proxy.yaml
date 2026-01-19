@@ -33,7 +33,7 @@ spec:
           pass-user-headers: true
           pass-access-token: true
           approval-prompt: auto
-          # scope: "openid email"
+          scope: "openid email profile groups"
           code-challenge-method: "S256"
         ingress:
           enabled: false
