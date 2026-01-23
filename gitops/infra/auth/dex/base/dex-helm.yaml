@@ -35,7 +35,7 @@ spec:
               disableRotation: false
               reuseInterval: "4s"
               validIfNotUsedFor: "168h" 
-              absoluteLifetime: "720h"
+              absoluteLifetime: "360h"
 
           oauth2:
             responseTypes: ["code", "token", "id_token"]

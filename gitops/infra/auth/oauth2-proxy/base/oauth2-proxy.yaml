@@ -25,6 +25,8 @@ spec:
           email-domain: "*"
           skip-provider-button: true
           cookie-domain: ".net.konst.fish"
+          cookie-refresh: "45m"
+          cookie-expire: "168h0m0s"
           whitelist-domain: ".net.konst.fish:*"
           reverse-proxy: true
           set-xauthrequest: true
