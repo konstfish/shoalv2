@@ -1,0 +1,30 @@
+components:
+  infra:
+    management:
+      argocd:
+        enabled: true
+      olm:
+        enabled: true
+      operators:
+        enabled: true
+        basePath: overlays/barracuda
+    storage:
+      local-path-provisioner:
+        enabled: true
+    ingress:
+      ingress-nginx:
+        enabled: false
+      cert-manager:
+        enabled: true
+      istio-gateway:
+        enabled: true
+        basePath: overlays/tetra
+    network:
+      cilium:
+        enabled: true
+      istio:
+        enabled: true
+        basePath: overlays/tetra
+      netbird-operator:
+        enabled: true
+        basePath: overlays/tetra

@@ -1,16 +1,3 @@
-apiVersion: security.istio.io/v1beta1
-kind: RequestAuthentication
-metadata:
-  name: jwt-confirm
-spec:
-  selector:
-    matchLabels:
-      gateway.networking.k8s.io/gateway-name: http-gateway-netbird
-  jwtRules:
-    - issuer: "https://auth.konst.fish"
-      jwksUri: "https://auth.konst.fish/keys"
-      forwardOriginalToken: true
----
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
@@ -49,3 +36,16 @@ spec:
     when:
     - key: request.auth.claims[groups]
       notValues: ["shoal-konst-fish:facultative"]
+---
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: jwt-confirm
+spec:
+  selector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: http-gateway-netbird
+  jwtRules:
+    - issuer: "https://auth.konst.fish"
+      jwksUri: "https://auth.konst.fish/keys"
+      forwardOriginalToken: true

@@ -7,31 +7,18 @@ variable "hcloud_token" {
 variable "cluster_name" {
   description = "The name of the cluster"
   type        = string
-  default     = "sardine"
-}
-
-variable "ssh_key_name" {
-  description = "Name of the Hetzner SSH key to use"
-  type        = string
-  default     = "konstfish"
 }
 
 variable "server_type" {
   description = "Hetzner Cloud server type"
   type        = string
-  default     = "cax21"
+  default     = "cax31"
 }
 
 variable "hetzner_location" {
   description = "Hetzner Cloud server location"
   type        = string
   default     = "nbg1"
-}
-
-variable "hetzner_datacenter" {
-  description = "Hetzner Cloud datacenter for primary IPs"
-  type        = string
-  default     = "nbg1-dc3"
 }
 
 variable "hetzner_labels" {
@@ -60,10 +47,27 @@ variable "hetzner_network_zone" {
   default     = "eu-central"
 }
 
-variable "cluster_controller_node_count" {
+variable "controller_count" {
   description = "The number of controller nodes in the cluster"
   type        = number
   default     = 1
+}
+
+variable "worker_count" {
+  description = "The number of worker nodes in the cluster"
+  type        = number
+  default     = 0
+}
+
+variable "worker_server_type" {
+  description = "Hetzner Cloud server type for worker nodes"
+  type        = string
+  default     = "cax21"
+}
+
+variable "ssh_key_name" {
+  description = "Name of the Hetzner SSH key to use"
+  type        = string
 }
 
 variable "talos_image_selector" {
@@ -84,6 +88,30 @@ variable "allow_scheduling_on_control_planes" {
   default     = true
 }
 
+variable "pod_cidr" {
+  description = "CIDR for pod network"
+  type        = string
+  default     = "10.244.0.0/16"
+}
+
+variable "service_cidr" {
+  description = "CIDR for service network"
+  type        = string
+  default     = "10.96.0.0/12"
+}
+
+variable "extra_firewall_rules" {
+  description = "Additional firewall rules to add"
+  type = list(object({
+    direction   = string
+    protocol    = string
+    port        = optional(string)
+    source_ips  = list(string)
+    description = optional(string)
+  }))
+  default = []
+}
+
 variable "extra_manifests" {
   description = "Extra manifests to deploy on the cluster"
   type        = list(string)
@@ -91,4 +119,28 @@ variable "extra_manifests" {
     "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml",
     "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
   ]
+}
+
+variable "controlplane_config_patches" {
+  description = "Additional Talos config patches for controlplane nodes (list of YAML strings)"
+  type        = list(string)
+  default     = []
+}
+
+variable "worker_config_patches" {
+  description = "Additional Talos config patches for worker nodes (list of YAML strings)"
+  type        = list(string)
+  default     = []
+}
+
+variable "cluster_load_balancer_type" {
+  description = "The type of load balancer to create."
+  type        = string
+  default     = "lb11"
+}
+
+variable "additional_cert_san" {
+  description = "Additional SAN to add to the API server certificate"
+  type        = string
+  default     = ""
 }

@@ -1,0 +1,6 @@
+resources:
+  - ../../base
+  #- ../../base/kiali
+
+patches:
+  - path: istio-ingress.yaml

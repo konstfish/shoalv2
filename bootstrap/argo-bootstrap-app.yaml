@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-        - ../../../clusters/barracuda/bootstrap-values.yaml
+        - ../../../clusters/tetra/bootstrap-values.yaml
   destination:
     namespace: 'cluster-infra-argocd'
     server: https://kubernetes.default.svc

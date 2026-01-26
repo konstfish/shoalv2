@@ -7,7 +7,7 @@ variable "hcloud_token" {
 variable "cluster_name" {
   description = "The name of the cluster"
   type        = string
-  default     = "sardine"
+  default     = "tetra"
 }
 
 variable "ssh_key_name" {
@@ -28,12 +28,6 @@ variable "hetzner_location" {
   default     = "nbg1"
 }
 
-variable "hetzner_datacenter" {
-  description = "Hetzner Cloud datacenter for primary IPs"
-  type        = string
-  default     = "nbg1-dc3"
-}
-
 variable "hetzner_labels" {
   description = "Hetzner common labels"
   type        = map(string)
@@ -45,13 +39,13 @@ variable "hetzner_labels" {
 variable "cluster_network_range" {
   description = "The CIDR for the cluster network"
   type        = string
-  default     = "10.23.0.0/24"
+  default     = "10.24.0.0/24"
 }
 
 variable "cluster_network_subnet_range" {
   description = "The CIDR for the cluster subnet"
   type        = string
-  default     = "10.23.0.0/24"
+  default     = "10.24.0.0/24"
 }
 
 variable "hetzner_network_zone" {
@@ -60,8 +54,14 @@ variable "hetzner_network_zone" {
   default     = "eu-central"
 }
 
-variable "cluster_controller_node_count" {
+variable "controller_count" {
   description = "The number of controller nodes in the cluster"
+  type        = number
+  default     = 3
+}
+
+variable "worker_count" {
+  description = "The number of worker nodes in the cluster"
   type        = number
   default     = 1
 }
