@@ -39,6 +39,11 @@ components:
         basePath: base
         autoSync: true
     ingress:
+      gateway-api-crd:
+        enabled: true
+        type: kustomize
+        basePath: base
+        autoSync: true
       cert-manager:
         enabled: true
         type: kustomize

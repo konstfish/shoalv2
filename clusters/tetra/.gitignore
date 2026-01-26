@@ -1,0 +1,6 @@
+controlplane.yaml
+controlplane-credentials.yaml
+kubeconfig*
+talosconfig
+worker.yaml
+archive
