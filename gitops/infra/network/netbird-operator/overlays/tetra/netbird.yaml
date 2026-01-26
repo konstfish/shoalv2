@@ -13,7 +13,8 @@ spec:
               name: "Tetra Kubernetes API Access Policy"
               sourceGroups:
                 - shoal-konst-fish:facultative
-              ports: []
+              ports:
+                - 443
               protocols:
                 - tcp
               bidirectional: false
@@ -22,7 +23,8 @@ spec:
               sourceGroups:
                 - shoal-konst-fish:facultative
                 - shoal-konst-fish:obligate
-              ports: []
+              ports:
+                - 443
               protocols:
                 - tcp
               bidirectional: false
