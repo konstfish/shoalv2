@@ -29,7 +29,6 @@ l2announcements:
   leaseDuration: 10s
   leaseRenewDeadline: 7s
   leaseRetryPeriod: 2s
-routingMode: native
 securityContext:
   capabilities:
     ciliumAgent:
@@ -48,4 +47,3 @@ securityContext:
     - NET_ADMIN
     - SYS_ADMIN
     - SYS_RESOURCE
-tunnelProtocol: ""

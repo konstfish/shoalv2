@@ -19,9 +19,6 @@ spec:
         ipam:
           mode: kubernetes
 
-        routingMode: native
-        tunnelProtocol: ""
-
         externalIPs:
           enabled: true
 

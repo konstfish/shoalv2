@@ -21,44 +21,4 @@ spec:
         k8sServiceHost: 10.24.0.5
         k8sServicePort: 6443
 
-        # QPS = #services * (1 / leaseRenewDeadline)
-        k8sClientRateLimit:
-          qps: 50
-          burst: 100
-
-        l2announcements:
-          enabled: false
-          leaseDuration: 10s
-          leaseRenewDeadline: 7s
-          leaseRetryPeriod: 2s
-
-        ipv6:
-          enabled: false
-
         ipv4NativeRoutingCIDR: 10.240.0.0/16
-
-        hubble:
-          enabled: true
-          relay:
-            enabled: true
-          ui:
-            enabled: true
-
-        securityContext:
-          capabilities:
-            ciliumAgent:
-              - CHOWN
-              - KILL
-              - NET_ADMIN
-              - NET_RAW
-              - IPC_LOCK
-              - SYS_ADMIN
-              - SYS_RESOURCE
-              - DAC_OVERRIDE
-              - FOWNER
-              - SETGID
-              - SETUID
-            cleanCiliumState:
-              - NET_ADMIN
-              - SYS_ADMIN
-              - SYS_RESOURCE
