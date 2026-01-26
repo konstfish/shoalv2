@@ -13,29 +13,10 @@ spec:
         ipam:
           mode: kubernetes
 
-        routingMode: native
-        tunnelProtocol: ""
-        autoDirectNodeRoutes: true
-
-        bpf:
-          masquerade: true
-
-        bgpControlPlane:
-          enabled: false
-
-
         externalIPs:
           enabled: true
 
         kubeProxyReplacement: true
-
-        socketLB:
-          hostNamespaceOnly: true
-
-        cgroup:
-          autoMount:
-            enabled: false
-          hostRoot: /sys/fs/cgroup
 
         k8sServiceHost: 10.24.0.5
         k8sServicePort: 6443

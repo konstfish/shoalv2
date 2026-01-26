@@ -21,21 +21,11 @@ spec:
 
         routingMode: native
         tunnelProtocol: ""
-        autoDirectNodeRoutes: true
-
-        bpf:
-          masquerade: true
-
-        bgpControlPlane:
-          enabled: false
 
         externalIPs:
           enabled: true
 
         kubeProxyReplacement: true
-
-        socketLB:
-          hostNamespaceOnly: true
 
         cgroup:
           autoMount:

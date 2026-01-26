@@ -29,7 +29,7 @@ components:
         basePath: base
         autoSync: true
       external-secrets:
-        enabled: true
+        enabled: false
         type: kustomize
         basePath: base
         autoSync: true
@@ -45,7 +45,7 @@ components:
         basePath: base
         autoSync: true
       external-dns:
-        enabled: true
+        enabled: false
         type: kustomize
         basePath: base
         autoSync: true
