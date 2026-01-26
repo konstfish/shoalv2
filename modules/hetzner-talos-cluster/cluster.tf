@@ -113,6 +113,12 @@ data "talos_machine_configuration" "worker" {
 
   config_patches = concat([
     yamlencode({
+      cluster = {
+        network = {
+          podSubnets     = [var.pod_cidr]
+          serviceSubnets = [var.service_cidr]
+        }
+      }
       machine = {
         kubelet = {
           extraConfig = {

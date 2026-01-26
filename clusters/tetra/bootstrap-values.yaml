@@ -21,7 +21,7 @@ components:
         basePath: overlays/tetra
     network:
       cilium:
-        enabled: true
+        enabled: false # TODO
       istio:
         enabled: true
         basePath: overlays/tetra

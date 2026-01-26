@@ -36,7 +36,7 @@ resource "hcloud_load_balancer_service" "lb_service_6443" {
 
     interval = 10
     timeout  = 5
-    retries = 3
+    retries  = 3
   }
 
   depends_on = [

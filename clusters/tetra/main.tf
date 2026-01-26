@@ -20,7 +20,7 @@ module "cluster" {
   allow_scheduling_on_control_planes = var.allow_scheduling_on_control_planes
   extra_manifests                    = var.extra_manifests
 
-  pod_cidr = "10.240.0.0/16"
+  pod_cidr     = "10.240.0.0/16"
   service_cidr = "10.94.0.0/16"
 
   additional_cert_san = "kubernetes.default.svc.tetra.local"
@@ -38,6 +38,26 @@ module "cluster" {
         }
       }
       machine = {
+        features = {
+          hostDNS = {
+            forwardKubeDNSToHost = false
+          }
+        }
+        sysctls = {
+          "vm.max_map_count" = "262144"
+        }
+      }
+    })
+  ]
+
+  worker_config_patches = [
+    yamlencode({
+      machine = {
+        features = {
+          hostDNS = {
+            forwardKubeDNSToHost = false
+          }
+        }
         sysctls = {
           "vm.max_map_count" = "262144"
         }
