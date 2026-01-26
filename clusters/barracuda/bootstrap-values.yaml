@@ -33,6 +33,7 @@ components:
     network:
       cilium:
         enabled: true
+        basePath: overlays/barracuda
       cilium-lb:
         enabled: true
       istio:

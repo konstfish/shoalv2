@@ -3,18 +3,13 @@ kind: Application
 metadata:
   name: cilium
   namespace: cluster-infra-argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: infra
   source:
-    repoURL: https://helm.cilium.io/
-    chart: cilium
-    targetRevision: "1.18.5"
     helm:
       valuesObject:
         cni:
-          exclusive: true
+          exclusive: false
           
         ipam:
           mode: kubernetes
@@ -23,11 +18,16 @@ spec:
         tunnelProtocol: ""
         autoDirectNodeRoutes: true
 
+        devices:
+          - br1
+          - enp3s0
+
         bpf:
           masquerade: true
 
         bgpControlPlane:
           enabled: false
+
 
         externalIPs:
           enabled: true
@@ -51,7 +51,7 @@ spec:
           burst: 100
 
         l2announcements:
-          enabled: false
+          enabled: true
           leaseDuration: 10s
           leaseRenewDeadline: 7s
           leaseRetryPeriod: 2s
@@ -59,7 +59,7 @@ spec:
         ipv6:
           enabled: false
 
-        ipv4NativeRoutingCIDR: 10.240.0.0/16
+        ipv4NativeRoutingCIDR: 10.244.0.0/16
 
         hubble:
           enabled: true
@@ -86,12 +86,3 @@ spec:
               - NET_ADMIN
               - SYS_ADMIN
               - SYS_RESOURCE
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: kube-system
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - ServerSideApply=true

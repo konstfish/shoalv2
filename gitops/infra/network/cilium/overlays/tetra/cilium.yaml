@@ -17,10 +17,6 @@ spec:
         tunnelProtocol: ""
         autoDirectNodeRoutes: true
 
-        devices:
-          - br1
-          - enp3s0
-
         bpf:
           masquerade: true
 
