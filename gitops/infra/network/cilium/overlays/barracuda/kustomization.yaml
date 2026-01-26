@@ -1,6 +1,3 @@
 
 resources:
   - ../../base
-
-patches:
-  - patch: cilium.yaml
