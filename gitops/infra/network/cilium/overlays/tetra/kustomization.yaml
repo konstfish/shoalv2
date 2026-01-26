@@ -3,4 +3,4 @@ resources:
   - ../../base
 
 patches:
-  - patch: cilium.yaml
+  - path: cilium.yaml
