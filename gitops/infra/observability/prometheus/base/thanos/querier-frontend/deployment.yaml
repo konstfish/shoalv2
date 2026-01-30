@@ -37,7 +37,7 @@ spec:
             memory: 1Gi
             cpu: 500m
       - name: prom-label-enforcer
-        image: quay.io/prometheuscommunity/prom-label-proxy:v0.11.0
+        image: quay.io/prometheuscommunity/prom-label-proxy:v0.12.1
         imagePullPolicy: Always
         args:
           - "--insecure-listen-address=127.0.0.1:8080"
