@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: thanos-store-gateway
-        image: quay.io/thanos/thanos:v0.38.0
+        image: quay.io/thanos/thanos:v0.40.1
         args:
           - store
           - --data-dir=/var/thanos/store
