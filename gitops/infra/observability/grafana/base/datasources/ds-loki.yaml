@@ -1,0 +1,30 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: ds-loki
+spec:
+  instanceSelector:
+    matchLabels:
+      app: "grafana"
+  valuesFrom:
+    - targetPath: secureJsonData.httpHeaderValue1
+      valueFrom:
+        secretKeyRef:
+          key: tenants
+          name: tenant-query-list
+  datasource:
+    name: loki
+    type: loki
+    uid: loki1
+    access: proxy
+    basicAuth: false
+    url: http://loki-gateway.monitoring.svc
+    isDefault: false
+    jsonData:
+      httpHeaderName1: X-Scope-OrgID
+      queryTimeout: 5m
+      timeout: 60
+      manageAlerts: false
+      tlsSkipVerify: true
+    secureJsonData:
+      httpHeaderValue1: "${tenants}"

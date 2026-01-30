@@ -1,0 +1,4 @@
+namespace: cluster-observability-monitoring
+
+resources:
+  - kubelet.yaml

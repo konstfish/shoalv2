@@ -1,0 +1,84 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cilium
+  namespace: cluster-infra-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: infra
+  source:
+    repoURL: https://helm.cilium.io/
+    chart: cilium
+    targetRevision: "1.18.5"
+    helm:
+      valuesObject:
+        cni:
+          exclusive: true
+          
+        ipam:
+          mode: kubernetes
+
+        externalIPs:
+          enabled: true
+
+        kubeProxyReplacement: true
+
+        cgroup:
+          autoMount:
+            enabled: false
+          hostRoot: /sys/fs/cgroup
+
+        k8sServiceHost: 127.0.0.1
+        k8sServicePort: 7445
+
+        # QPS = #services * (1 / leaseRenewDeadline)
+        k8sClientRateLimit:
+          qps: 50
+          burst: 100
+
+        l2announcements:
+          enabled: false
+          leaseDuration: 10s
+          leaseRenewDeadline: 7s
+          leaseRetryPeriod: 2s
+
+        ipv6:
+          enabled: false
+
+        ipv4NativeRoutingCIDR: 10.240.0.0/16
+
+        hubble:
+          enabled: true
+          relay:
+            enabled: true
+          ui:
+            enabled: true
+
+        securityContext:
+          capabilities:
+            ciliumAgent:
+              - CHOWN
+              - KILL
+              - NET_ADMIN
+              - NET_RAW
+              - IPC_LOCK
+              - SYS_ADMIN
+              - SYS_RESOURCE
+              - DAC_OVERRIDE
+              - FOWNER
+              - SETGID
+              - SETUID
+            cleanCiliumState:
+              - NET_ADMIN
+              - SYS_ADMIN
+              - SYS_RESOURCE
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true

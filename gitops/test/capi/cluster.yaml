@@ -1,0 +1,180 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: talos-kubevirt
+  namespace: sub-cluster-test
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks: ["10.243.0.0/16"]
+    services:
+      cidrBlocks: ["10.95.0.0/12"]
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: KubevirtCluster
+    name: talos-kubevirt
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+    kind: TalosControlPlane
+    name: talos-kubevirt-cp
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: KubevirtCluster
+metadata:
+  name: talos-kubevirt
+  namespace: sub-cluster-test
+spec: {}
+---
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+kind: TalosControlPlane
+metadata:
+  name: talos-kubevirt-cp
+  namespace: sub-cluster-test
+spec:
+  replicas: 1
+  version: v1.31.0
+  infrastructureTemplate:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: KubevirtMachineTemplate
+    name: talos-kubevirt-cp-template
+  controlPlaneConfig:
+    controlplane:
+      generateType: controlplane
+      talosVersion: v1.12.1
+      strategicPatches:
+        - |
+          machine:
+            install:
+              disk: /dev/vda
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: KubevirtMachineTemplate
+metadata:
+  name: talos-kubevirt-cp-template
+  namespace: sub-cluster-test
+spec:
+  template:
+    spec:
+      virtualMachineBootstrapCheck:
+        checkStrategy: none
+      virtualMachineTemplate:
+        spec:
+          runStrategy: Always
+          template:
+            spec:
+              domain:
+                cpu:
+                  cores: 2
+                memory:
+                  guest: 4Gi
+                devices:
+                  disks:
+                    - name: rootdisk
+                      disk:
+                        bus: virtio
+                    - name: datadisk
+                      disk:
+                        bus: virtio
+              volumes:
+                - name: rootdisk
+                  containerDisk:
+                    image: ghcr.io/konstfish/talos-containerdisk:v1.12.1
+                - name: datadisk
+                  dataVolume:
+                    name: datadisk
+          dataVolumeTemplates:
+            - metadata:
+                name: datadisk
+              spec:
+                storage:
+                  resources:
+                    requests:
+                      storage: 15Gi
+                source:
+                  blank: {}
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: talos-kubevirt-workers
+  namespace: sub-cluster-test
+spec:
+  clusterName: talos-kubevirt
+  replicas: 2
+  selector:
+    matchLabels: {}
+  template:
+    spec:
+      clusterName: talos-kubevirt
+      version: v1.31.0
+      bootstrap:
+        configRef:
+          apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
+          kind: TalosConfigTemplate
+          name: talos-kubevirt-workers
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+        kind: KubevirtMachineTemplate
+        name: talos-kubevirt-worker-template
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: KubevirtMachineTemplate
+metadata:
+  name: talos-kubevirt-worker-template
+  namespace: sub-cluster-test
+spec:
+  template:
+    spec:
+      virtualMachineBootstrapCheck:
+        checkStrategy: none
+      virtualMachineTemplate:
+        spec:
+          runStrategy: Always
+          template:
+            spec:
+              domain:
+                cpu:
+                  cores: 2
+                memory:
+                  guest: 4Gi
+                devices:
+                  disks:
+                    - name: rootdisk
+                      disk:
+                        bus: virtio
+                    - name: datadisk
+                      disk:
+                        bus: virtio
+              volumes:
+                - name: rootdisk
+                  containerDisk:
+                    image: ghcr.io/konstfish/talos-containerdisk:v1.12.1
+                - name: datadisk
+                  dataVolume:
+                    name: datadisk
+          dataVolumeTemplates:
+            - metadata:
+                name: datadisk
+              spec:
+                storage:
+                  resources:
+                    requests:
+                      storage: 15Gi
+                source:
+                  blank: {}
+---
+apiVersion: bootstrap.cluster.x-k8s.io/v1alpha3
+kind: TalosConfigTemplate
+metadata:
+  name: talos-kubevirt-workers
+  namespace: sub-cluster-test
+spec:
+  template:
+    spec:
+      generateType: worker
+      talosVersion: v1.12.1
+      strategicPatches:
+        - |
+          machine:
+            install:
+              disk: /dev/vda

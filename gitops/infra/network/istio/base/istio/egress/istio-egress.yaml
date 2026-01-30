@@ -1,0 +1,19 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: istio-egress
+  namespace: istio-egress
+spec:
+  chart: gateway
+  repo: https://istio-release.storage.googleapis.com/charts
+  targetNamespace: istio-egress
+  version: "1.28.2"
+  valuesContent: |
+    defaults:
+      labels:
+        app: istio-egress
+        istio: egressgateway
+        Istio: egressgateway
+        release: istio-egress
+      service:
+        type: ClusterIP

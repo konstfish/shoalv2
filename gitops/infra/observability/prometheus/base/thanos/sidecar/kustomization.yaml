@@ -1,0 +1,7 @@
+# doesn't require a deployment, part of prometheus operator
+
+namespace: cluster-observability-monitoring
+
+resources:
+  - service.yaml
+  - servicemonitor.yaml

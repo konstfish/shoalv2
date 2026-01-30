@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istiod
+  namespace: cluster-infra-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: infra
+  source:
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: istiod
+    targetRevision: "1.28.2"
+    helm:
+      valuesObject:
+        meshConfig:
+          extensionProviders:
+            - name: "oauth2-proxy"
+              envoyExtAuthzHttp:
+                service: "oauth2-proxy.oauth2-proxy.svc.cluster.local"
+                port: "80"
+                includeHeadersInCheck: ["authorization", "cookie"]
+                headersToUpstreamOnAllow: ["authorization", "path", "x-auth-request-user", "x-auth-request-email", "x-auth-request-access-token", "x-auth-request-preferred-username"]
+                headersToDownstreamOnDeny: ["content-type", "set-cookie"]
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true

@@ -1,0 +1,5 @@
+resources:
+  - ../../base/prometheus
+  - ../../base/grafana
+  - ../../base/tekton
+  - ../../base/kiali

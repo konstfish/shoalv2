@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://charts.dexidp.io
     chart: dex
-    targetRevision: 0.23.0
+    targetRevision: 0.24.0
     helm:
       valuesObject:
         config:
@@ -35,7 +35,7 @@ spec:
               disableRotation: false
               reuseInterval: "4s"
               validIfNotUsedFor: "168h" 
-              absoluteLifetime: "720h"
+              absoluteLifetime: "360h"
 
           oauth2:
             responseTypes: ["code", "token", "id_token"]
@@ -46,13 +46,21 @@ spec:
 
           staticClients:
             - id: netbird-dex
-              name: 'Netbird'
-              public: true
+              name: 'netbird-dex'
+              #public: false
               redirectURIs:
+                - 'https://netbird.konst.fish/oauth2/callback'
                 - 'https://netbird.konst.fish/#callback'
                 - 'http://localhost:53000'
               trustedPeers: []
-              secretEnv: $NETBIRD_CLIENT_SECRET
+              secretEnv: NETBIRD_CLIENT_SECRET
+            - id: oauth2-proxy
+              name: 'oauth2-proxy'
+              public: false
+              redirectURIs:
+                - 'https://sso.barracuda.net.konst.fish/oauth2/callback'
+              trustedPeers: []
+              secretEnv: OAUTH2_PROXY_CLIENT_SECRET
 
           connectors:
           - type: github
@@ -79,7 +87,9 @@ spec:
           - secretRef:
               name: dex-github-credentials
           - secretRef:
-              name: dex-client
+              name: dex-netbird
+          - secretRef:
+              name: dex-oauth2-proxy
 
         ingress:
           enabled: true

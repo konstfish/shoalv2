@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: netbird-mgmt-api-key
+  namespace: netbird-operator
+spec:
+  encryptedData:
+    NB_API_KEY: AgCcL40S4Nfz798TmhbQeoB8ZDZHI3jzmf4EUFNQ9+V6sd/RhMif2kKhGY9lo3V3i50hxO4Yvq0HGTMGt58BO1MTbKwiu77NCLKBCSRKLVrTE14L+M3qy4CeP1h/2+AXYXu+XJ9z3Qs1luc9I28SirPb2pZLGRMekuFICb2yUU+RLeRgp479/SB1sP3toh6zpo3eTvqMVoMmll10MyICBwdV4ksPcK7z1ITVWYCr9zzHIkEZoCU5vP/F0W3ZkANYmFqSVQ6IxXUrO6dHdBy7E6z0GEc3wQaFnqnlpaj3UTknqsPdhjrD6ekcGBbw03F6HuiwRQZs3qEJezCTzkvpWdckNIzJFmBfG15QZbPDTos/x9unoPTUYvlwwApE+dcLKUznHBEWfPBxtGZ/h2C1Ah88934Fq2+3l0RKCDDkAvRBeMjmrx4T1HGgyVKArA5BZghV7BQ9GceNd75Q+nhCp6E+W7J2B20Hlen52WCvKZDd1BzHptrlZ84cl4Fsjy47faWo+W2145/+8Oa8FxM2zGcwtRrFOU6AQ0893zfjDYaGRs3HDH0lMs4KyP5sa9PFOiJnDTHaXZOg4+NUXz66CyGuBTfM0oMWWjWrKtEA4l9Q1tSumEckpAGtXYuTURhIDxiGLdQQ7WsNa9DdN17pZWFHXIGxRSpY+BGkb41YFG2clkY2N8bVkMg19yKYtGFkYLkPW6REnpY0RDHeV4X7XvFB/+AjKWZtrO5mIg5IwBGu8NfMPPHutBKf
+  template:
+    metadata:
+      name: netbird-mgmt-api-key
+      namespace: netbird-operator
+    type: Opaque

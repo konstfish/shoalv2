@@ -16,9 +16,9 @@ machine:
         dhcp: false
         addresses:
           - 10.10.1.3/24
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.10.1.254
+        #routes:
+        #  - network: 0.0.0.0/0
+        #    gateway: 10.10.1.254
         bridge:
           stp:
             enabled: true

@@ -15,4 +15,6 @@ secret-kopia.yaml
 
 # temp
 gitops/infra/network/netbird
-netbird-operator
+
+docs
+__*

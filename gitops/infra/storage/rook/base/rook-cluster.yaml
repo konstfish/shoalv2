@@ -10,7 +10,7 @@ spec:
     # v18 is Reef, v19 is Squid
     # RECOMMENDATION: In production, use a specific version tag instead of the general v19 flag, which pulls the latest release and could result in different
     # versions running within the cluster. See tags available at https://hub.docker.com/r/ceph/ceph/tags/.
-    # If you want to be more precise, you can always use a timestamp tag such as quay.io/ceph/ceph:v19.2.2-20250409
+    # If you want to be more precise, you can always use a timestamp tag such as quay.io/ceph/ceph:v19.2.3-20250717
     # This tag might not contain a new Ceph version, just security fixes from the underlying operating system, which will reduce vulnerabilities
     image: quay.io/ceph/ceph:v19.2.3
     # Whether to allow unsupported versions of Ceph. Currently Reef and Squid are supported.
@@ -155,6 +155,7 @@ spec:
       method: quick
       # dataSource indicate where to get random bytes from to write on the disk
       # possible choices are 'zero' (default) or 'random'
+      # the 'random' source only works with the 'complete' method, the 'quick' method will use the 'zero' source
       # using random sources will consume entropy from the system and will take much more time then the zero source
       dataSource: zero
       # iteration overwrite N times instead of the default (1)
@@ -311,7 +312,7 @@ spec:
       enabled: false
 
     # cephfs driver specific settings.
-    cephfs:
+    cephfs: {}
       # Set CephFS Kernel mount options to use https://docs.ceph.com/en/latest/man/8/mount.ceph/#options.
       # kernelMountOptions: ""
       # Set CephFS Fuse mount options to use https://docs.ceph.com/en/latest/man/8/ceph-fuse/#options.

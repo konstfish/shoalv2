@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: talos-debug
+spec:
+  containers:
+    - name: talos
+      image: ghcr.io/konstfish/alpine-debug:latest
+      command: ["sleep", "infinity"]
+      volumeMounts:
+        - name: kubeconfig
+          mountPath: /kubeconfig
+          subPath: value
+        - name: talosconfig
+          mountPath: /talosconfig
+          subPath: talosconfig
+  volumes:
+    - name: kubeconfig
+      secret:
+        secretName: talos-kubevirt-kubeconfig
+    - name: talosconfig
+      secret:
+        secretName: talos-kubevirt-talosconfig

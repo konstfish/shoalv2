@@ -4,15 +4,16 @@ variable "hcloud_token" {
   sensitive   = true
 }
 
-variable "github_usernames" {
-  description = "List of GitHub usernames"
-  type        = list(string)
-}
-
 variable "cluster_name" {
   description = "The name of the cluster"
   type        = string
   default     = "sardine"
+}
+
+variable "ssh_key_name" {
+  description = "Name of the Hetzner SSH key to use"
+  type        = string
+  default     = "konstfish"
 }
 
 variable "server_type" {
@@ -27,6 +28,12 @@ variable "hetzner_location" {
   default     = "nbg1"
 }
 
+variable "hetzner_datacenter" {
+  description = "Hetzner Cloud datacenter for primary IPs"
+  type        = string
+  default     = "nbg1-dc3"
+}
+
 variable "hetzner_labels" {
   description = "Hetzner common labels"
   type        = map(string)
@@ -35,7 +42,6 @@ variable "hetzner_labels" {
   }
 }
 
-// network
 variable "cluster_network_range" {
   description = "The CIDR for the cluster network"
   type        = string
@@ -49,15 +55,40 @@ variable "cluster_network_subnet_range" {
 }
 
 variable "hetzner_network_zone" {
-  description = "The network zone where the resources will be created."
+  description = "The network zone where the resources will be created"
   type        = string
   default     = "eu-central"
 }
 
-// cluster
 variable "cluster_controller_node_count" {
   description = "The number of controller nodes in the cluster"
   type        = number
   default     = 1
 }
 
+variable "talos_image_selector" {
+  description = "Selector for the Talos image"
+  type        = string
+  default     = "os=talos"
+}
+
+variable "talos_image_architecture" {
+  description = "Architecture for the Talos image"
+  type        = string
+  default     = "arm"
+}
+
+variable "allow_scheduling_on_control_planes" {
+  description = "Allow scheduling workloads on control plane nodes"
+  type        = bool
+  default     = true
+}
+
+variable "extra_manifests" {
+  description = "Extra manifests to deploy on the cluster"
+  type        = list(string)
+  default = [
+    "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml",
+    "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
+  ]
+}

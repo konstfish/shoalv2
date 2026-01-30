@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://kubernetes.github.io/ingress-nginx
     chart: ingress-nginx
-    targetRevision: 4.13.0
+    targetRevision: 4.13.1
     helm:
       valuesObject:
         controller:
@@ -27,13 +27,13 @@ spec:
             type: ClusterIP
             annotations:
               netbird.io/expose: "true"
-              netbird.io/policy: default
+              netbird.io/policy: proxy-access
               netbird.io/resource-name: netbird-nginx
               netbird.io/groups: netbird-nginx-k8s
           metrics:
-            enabled: false
+            enabled: true
             serviceMonitor:
-              enabled: false
+              enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx-netbird

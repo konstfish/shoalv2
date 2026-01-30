@@ -18,13 +18,18 @@ components:
         basePath: base
         autoSync: true
         targetNamespace: cluster-infra-argocd
+      operators:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
       sealed-secrets:
         enabled: true
         type: kustomize
         basePath: base
         autoSync: true
       external-secrets:
-        enabled: true
+        enabled: false
         type: kustomize
         basePath: base
         autoSync: true
@@ -34,13 +39,18 @@ components:
         basePath: base
         autoSync: true
     ingress:
+      gateway-api-crd:
+        enabled: true
+        type: kustomize
+        basePath: base
+        autoSync: true
       cert-manager:
         enabled: true
         type: kustomize
         basePath: base
         autoSync: true
       external-dns:
-        enabled: true
+        enabled: false
         type: kustomize
         basePath: base
         autoSync: true
@@ -50,6 +60,22 @@ components:
         basePath: base
         autoSync: true
       ingress-nginx-netbird:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
+      istio-gateway:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
+    observability:
+      prometheus:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
+      grafana:
         enabled: false
         type: kustomize
         basePath: base
@@ -76,8 +102,23 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      oauth2-proxy:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     network:
-      flannel:
+      cilium:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
+      cilium-lb:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
+      istio:
         enabled: false
         type: kustomize
         basePath: base
@@ -92,8 +133,19 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      netbird-operator:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     compute:
       kubevirt:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
+    pipelines:
+      tekton:
         enabled: false
         type: kustomize
         basePath: base

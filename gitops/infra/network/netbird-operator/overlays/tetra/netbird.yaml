@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: netbird-operator
+  namespace: cluster-infra-argocd
+spec:
+  source:
+    helm:
+      valuesObject:
+        ingress:
+          policies:
+            cluster-api-access:
+              name: "Tetra Kubernetes API Access Policy"
+              sourceGroups:
+                - shoal-konst-fish:facultative
+              ports:
+                - 443
+              protocols:
+                - tcp
+              bidirectional: false
+            proxy-access:
+              name: "Tetra Proxy Access Policy"
+              sourceGroups:
+                - shoal-konst-fish:facultative
+                - shoal-konst-fish:obligate
+              ports:
+                - 443
+              protocols:
+                - tcp
+              bidirectional: false
+        cluster:
+          dns: svc.tetra.local
+          name: tetra
+        netbirdAPI:
+          keyFromSecret:
+            name: "netbird-mgmt-api-key"
+            key: "NB_API_KEY"
+        managementURL: "https://netbird.konst.fish:443"
+        webhook:
+          failurePolicy: Ignore

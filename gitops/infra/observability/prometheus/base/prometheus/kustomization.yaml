@@ -1,0 +1,7 @@
+namespace: cluster-observability-monitoring
+
+resources:
+  - ns.yaml
+  - prometheus.yaml
+  - rbac.yaml
+  - thanos-objstore-secret.yaml

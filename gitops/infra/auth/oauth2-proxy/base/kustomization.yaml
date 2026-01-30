@@ -1,0 +1,4 @@
+resources:
+  - ns.yaml
+  - oauth2-proxy.yaml
+  - sealed-secret.yaml

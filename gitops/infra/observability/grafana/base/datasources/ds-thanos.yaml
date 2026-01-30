@@ -1,0 +1,19 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: ds-thanos
+spec:
+  instanceSelector:
+    matchLabels:
+      app: "grafana"
+  datasource:
+    name: thanos
+    type: prometheus
+    uid: thanos1
+    access: proxy
+    basicAuth: false
+    url: http://thanos-querier.cluster-observability-monitoring.svc:9090
+    isDefault: true
+    jsonData:
+      "tlsSkipVerify": true
+      "timeInterval": "5s"

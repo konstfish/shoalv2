@@ -1,0 +1,77 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: knative-control-plane-efficiency
+spec:
+  instanceSelector:
+    matchLabels:
+      app: grafana
+  folderRef: knative-ref
+  url: https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/grafana/knative-control-plane-efficiency.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: knative-eventing-broker
+spec:
+  instanceSelector:
+    matchLabels:
+      app: grafana
+  folderRef: knative-ref
+  url: https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/grafana/knative-eventing-broker.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: knative-eventing-source
+spec:
+  instanceSelector:
+    matchLabels:
+      app: grafana
+  folderRef: knative-ref
+  url: https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/grafana/knative-eventing-source.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: knative-reconciler
+spec:
+  instanceSelector:
+    matchLabels:
+      app: grafana
+  folderRef: knative-ref
+  url: https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/grafana/knative-reconciler.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: knative-revision-cpu-memory-metrics
+spec:
+  instanceSelector:
+    matchLabels:
+      app: grafana
+  folderRef: knative-ref
+  url: https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/grafana/knative-revision-cpu-memory-metrics.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: knative-scaling
+spec:
+  instanceSelector:
+    matchLabels:
+      app: grafana
+  folderRef: knative-ref
+  url: https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/grafana/knative-scaling.json
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: knative-serving-http-requests
+spec:
+  instanceSelector:
+    matchLabels:
+      app: grafana
+  folderRef: knative-ref
+  url: https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/grafana/knative-serving-http-requests.json
+---

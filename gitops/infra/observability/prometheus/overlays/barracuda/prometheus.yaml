@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+  namespace: cluster-observability-monitoring
+spec:
+  replicas: 2
+  retention: 14d
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: rook-ceph-block
+        resources:
+          requests:
+            storage: 25Gi
+  externalLabels:
+    cluster: barracuda

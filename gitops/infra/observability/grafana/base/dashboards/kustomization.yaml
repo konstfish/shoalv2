@@ -1,0 +1,7 @@
+resources:
+  - kubernetes
+  - ingress
+  - knative
+  - onprem
+  - kubevirt
+  - istio

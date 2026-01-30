@@ -1,0 +1,36 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+  namespace: cluster-observability-monitoring
+spec:
+  serviceAccountName: prometheus
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector: {}
+  podMonitorSelector: {}
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 5Gi
+    requests:
+      cpu: 450m
+      memory: 1Gi
+  securityContext:
+    runAsUser: 65534
+    fsGroup: 65534
+  replicas: 2
+  retention: 7d
+  storage:
+    volumeClaimTemplate:
+      spec:
+        storageClassName: hcloud-volumes
+        resources:
+          requests:
+            storage: 20Gi
+  thanos:
+    image: quay.io/thanos/thanos:v0.38.0
+    objectStorageConfig:
+      key: thanos.yaml
+      name: thanos-objstore-secret
+  externalLabels:
+    cluster: tetra

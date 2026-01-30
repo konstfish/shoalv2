@@ -13,9 +13,9 @@ spec:
         kubevirt.io/vm: fedora-vm
       annotations:
         kubevirt.io/allow-pod-bridge-network-live-migration: "true"
-        k8s.v1.cni.cncf.io/networks: '[
-          { "name": "kube-system/bridge-conf",
-            "ips": ["10.10.1.4/24"] } ]'
+        #k8s.v1.cni.cncf.io/networks: '[
+        #  { "name": "kube-system/bridge-conf",
+        #    "ips": ["10.10.1.4/24"] } ]'
     spec:
       evictionStrategy: LiveMigrate
       domain:
@@ -33,17 +33,17 @@ spec:
               disk:
                 bus: virtio
           interfaces:
-          #- name: podnet
-          #  masquerade: {}
-          - name: external
-            bridge: {}
-            macAddress: "02:00:00:00:00:01"
+          - name: podnet
+            masquerade: {}
+          #- name: external
+          #  bridge: {}
+          #  macAddress: "02:00:00:00:00:01"
       networks:
-        #- name: podnet
-        #  pod: {}
-        - name: external
-          multus:
-            networkName: kube-system/bridge-conf
+        - name: podnet
+          pod: {}
+        #- name: external
+        #  multus:
+        #    networkName: kube-system/bridge-conf
       volumes:
         - name: fedora-vm-pvc
           persistentVolumeClaim:

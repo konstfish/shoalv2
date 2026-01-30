@@ -1,0 +1,10 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubevirt-cp
+spec:
+  instanceSelector:
+    matchLabels:
+      app: grafana
+  folderRef: kubevirt-ref
+  url: https://raw.githubusercontent.com/kubevirt/monitoring/refs/heads/main/dashboards/grafana/kubevirt-control-plane.json

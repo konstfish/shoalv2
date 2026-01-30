@@ -1,0 +1,6 @@
+namespace: tekton-pipelines
+
+resources:
+  - ns.yaml
+  - config.yaml
+  - httproute.yaml

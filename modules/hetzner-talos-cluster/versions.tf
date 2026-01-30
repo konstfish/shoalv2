@@ -1,0 +1,16 @@
+terraform {
+  required_providers {
+    hcloud = {
+      source  = "hetznercloud/hcloud"
+      version = "~> 1.44"
+    }
+    talos = {
+      source  = "siderolabs/talos"
+      version = "~> 0.8.1"
+    }
+    http = {
+      source  = "hashicorp/http"
+      version = "~> 3.5.0"
+    }
+  }
+}

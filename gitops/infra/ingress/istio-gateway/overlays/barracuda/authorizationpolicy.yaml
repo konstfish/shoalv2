@@ -1,0 +1,52 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: auth-policy
+spec:
+  selector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: http-gateway-netbird
+  action: CUSTOM
+  provider:
+    name: "oauth2-proxy"
+  rules:
+  - to:
+    - operation:
+        hosts:
+        - "sso.barracuda.net.konst.fish"
+        - "grafana.barracuda.net.konst.fish"
+        - "kiali.barracuda.net.konst.fish"
+        - "zeppelin.barracuda.net.konst.fish"
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: auth-policy-deny-wrong-group
+spec:
+  selector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: http-gateway-netbird
+  action: DENY
+  rules:
+  - to:
+    - operation:
+        hosts:
+        - "grafana.barracuda.net.konst.fish"
+        - "kiali.barracuda.net.konst.fish"
+        - "zeppelin.barracuda.net.konst.fish"
+    when:
+    - key: request.auth.claims[groups]
+      notValues: ["shoal-konst-fish:facultative"]
+---
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: jwt-confirm
+spec:
+  selector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: http-gateway-netbird
+  jwtRules:
+    - issuer: "https://auth.konst.fish"
+      jwksUri: "https://auth.konst.fish/keys"
+      forwardOriginalToken: true

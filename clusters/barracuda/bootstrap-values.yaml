@@ -3,7 +3,12 @@ components:
     management:
       olm:
         enabled: true
+      operators:
+        enabled: true
+        basePath: overlays/barracuda
       argocd:
+        enabled: true
+      velero:
         enabled: true
     storage:
       csi-snapshotter:
@@ -11,8 +16,6 @@ components:
       rook:
         enabled: true
       local-path-provisioner:
-        enabled: true
-      velero:
         enabled: true
     ingress:
       cert-manager:
@@ -24,11 +27,39 @@ components:
       ingress-nginx-netbird:
         enabled: true
         basePath: overlays/barracuda
+      istio-gateway:
+        enabled: true
+        basePath: overlays/barracuda
     network:
+      cilium:
+        enabled: true
+        basePath: overlays/barracuda
+      cilium-lb:
+        enabled: true
+      istio:
+        enabled: true
+        basePath: overlays/barracuda
       multus:
         enabled: true
       metallb:
+        enabled: false
+      netbird-operator:
         enabled: true
+        basePath: overlays/barracuda
+    auth:
+      oauth2-proxy:
+        enabled: true
+        basePath: base
     compute:
       kubevirt:
         enabled: true
+    observability:
+      prometheus:
+        enabled: true
+        basePath: overlays/barracuda
+      grafana:
+        enabled: true
+        basePath: overlays/barracuda
+    pipelines:
+      tekton:
+        enabled: false
