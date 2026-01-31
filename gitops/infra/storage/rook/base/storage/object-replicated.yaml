@@ -1,1 +1,90 @@
-# TODO
+# Ceph Object Store (S3-compatible)
+#
+# Ceph v20 (Tentacle) supports OAuth/OIDC authentication via STS AssumeRoleWithWebIdentity.
+# This config enables STS/IAM APIs for programmatic OAuth support if needed.
+#
+# Access options:
+# 1. Internal (in-cluster): Use service rook-ceph-rgw-ceph-objectstore.rook-ceph:80
+# 2. External with oauth2-proxy: Add HTTPRoute through oauth2-proxy
+# 3. Native STS/OIDC: Apps exchange OIDC tokens for temp S3 credentials (advanced)
+#
+# Docs: https://docs.ceph.com/en/latest/radosgw/STS/
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStore
+metadata:
+  name: ceph-objectstore
+  namespace: rook-ceph
+spec:
+  metadataPool:
+    failureDomain: host
+    replicated:
+      size: 3
+      requireSafeReplicaSize: true
+    parameters:
+      compression_mode: none
+  dataPool:
+    failureDomain: host
+    replicated:
+      size: 3
+      requireSafeReplicaSize: true
+    parameters:
+      bulk: "true"
+      compression_mode: none
+  preservePoolsOnDelete: true
+  gateway:
+    port: 80
+    instances: 1
+    placement:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - rook-ceph-rgw
+              topologyKey: kubernetes.io/hostname
+    resources:
+      limits:
+        memory: "2Gi"
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+    priorityClassName: system-cluster-critical
+  healthCheck:
+    startupProbe:
+      disabled: false
+    readinessProbe:
+      disabled: false
+---
+# StorageClass for RGW bucket provisioning (OBC - ObjectBucketClaim)
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: rook-ceph-bucket
+provisioner: rook-ceph.ceph.rook.io/bucket
+reclaimPolicy: Delete
+parameters:
+  objectStoreName: ceph-objectstore
+  objectStoreNamespace: rook-ceph
+---
+# Admin user for object store management
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStoreUser
+metadata:
+  name: ceph-objectstore-admin
+  namespace: rook-ceph
+spec:
+  store: ceph-objectstore
+  displayName: "Object Store Admin"
+  capabilities:
+    user: "*"
+    bucket: "*"
+    metadata: "*"
+    usage: "*"
+    zone: "*"
+    roles: "*"
+    info: "*"
+    oidc-provider: "*"

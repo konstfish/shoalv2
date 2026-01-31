@@ -8,3 +8,4 @@ resources:
   - rook-dashboard-gateway.yaml
   - storage/block-replicated.yaml
   - storage/file-replicated.yaml
+  - storage/object-replicated.yaml
