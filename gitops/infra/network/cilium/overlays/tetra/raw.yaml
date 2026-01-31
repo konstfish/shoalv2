@@ -1,4 +1,6 @@
 # helm upgrade --install cilium cilium/cilium --namespace kube-system -f /Users/david/Developer/shoal2/gitops/infra/network/cilium/overlays/tetra/raw.yaml
+
+autoDirectNodeRoutes: false
 cgroup:
   autoMount:
     enabled: false
@@ -29,6 +31,7 @@ l2announcements:
   leaseDuration: 10s
   leaseRenewDeadline: 7s
   leaseRetryPeriod: 2s
+routingMode: native
 securityContext:
   capabilities:
     ciliumAgent:
@@ -47,3 +50,4 @@ securityContext:
     - NET_ADMIN
     - SYS_ADMIN
     - SYS_RESOURCE
+tunnelProtocol: ""
