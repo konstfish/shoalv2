@@ -1,59 +1,44 @@
-# Ceph Object Store with OAuth Support (Ceph v20+)
+# Ceph Dashboard OAuth 2.0 (Ceph v20+)
 
-This document explains the OAuth/OIDC options available for Ceph Object Store (RGW).
+Ceph v20 (Tentacle) adds native OAuth 2.0 support for the Ceph Dashboard.
 
-## Overview
+## How it works in Ceph v20
 
-Ceph v20+ supports **native STS (Security Token Service)** with OIDC via `AssumeRoleWithWebIdentity`. This allows apps to exchange OIDC tokens for temporary S3 credentials.
+For **cephadm-managed clusters**, Ceph v20 introduces:
+- `oauth2-proxy` service - handles OIDC authentication
+- `mgmt-gateway` service - nginx reverse proxy that fronts Dashboard, Prometheus, Grafana, Alertmanager
 
-However, for simpler use cases, you can also use **oauth2-proxy** in front of RGW.
+This provides centralized authentication and SSO for all Ceph management interfaces.
 
-## Access Options
+## How it works in Rook (this cluster)
 
-### Option 1: Internal Access Only (No OAuth)
-Access RGW from within the cluster using the service:
-```
-rook-ceph-rgw-ceph-objectstore.rook-ceph.svc.cluster.local:80
-```
+Since Rook manages Ceph on Kubernetes, we use the Kubernetes-native approach:
 
-### Option 2: External Access with oauth2-proxy
-Protect RGW with your existing oauth2-proxy. Add an HTTPRoute that goes through oauth2-proxy before reaching RGW.
+1. **oauth2-proxy** - Already deployed in `oauth2-proxy` namespace
+2. **Dex** - OIDC provider at `auth.konst.fish` 
+3. **Istio AuthorizationPolicy** - Requires oauth2-proxy authentication for protected hosts
 
-### Option 3: Native STS/OIDC (Advanced)
-For programmatic S3 SDK access with temporary credentials:
+### Protected Services
 
-1. Register your OIDC provider (Dex) with RGW
-2. Create IAM roles with trust policies
-3. Apps call `AssumeRoleWithWebIdentity` with their JWT to get temp S3 creds
+The following services require OAuth authentication via the `shoal-konst-fish:facultative` GitHub org/team:
 
-See [Ceph STS docs](https://docs.ceph.com/en/latest/radosgw/STS/) for details.
+- `rook.barracuda.net.konst.fish` - **Ceph Dashboard** 
+- `grafana.barracuda.net.konst.fish` - Grafana
+- `kiali.barracuda.net.konst.fish` - Kiali (Istio dashboard)
+- `zeppelin.barracuda.net.konst.fish` - Zeppelin
 
-## Getting Admin Credentials
+### Configuration
 
-```bash
-# Access Key
-kubectl get secret -n rook-ceph rook-ceph-object-user-ceph-objectstore-ceph-objectstore-admin \
-  -o jsonpath='{.data.AccessKey}' | base64 -d
+OAuth protection is configured in:
+- `gitops/infra/ingress/istio-gateway/overlays/barracuda/authorizationpolicy.yaml`
 
-# Secret Key  
-kubectl get secret -n rook-ceph rook-ceph-object-user-ceph-objectstore-ceph-objectstore-admin \
-  -o jsonpath='{.data.SecretKey}' | base64 -d
-```
-
-## Creating Buckets
-
-Using ObjectBucketClaim (OBC):
-```yaml
-apiVersion: objectbucket.io/v1alpha1
-kind: ObjectBucketClaim
-metadata:
-  name: my-bucket
-spec:
-  generateBucketName: my-bucket
-  storageClassName: rook-ceph-bucket
-```
+The AuthorizationPolicy uses Istio's external authorization with oauth2-proxy to:
+1. Redirect unauthenticated users to Dex for login
+2. Verify JWT tokens from authenticated users
+3. Check group membership (`shoal-konst-fish:facultative`)
 
 ## References
 
-- [Ceph STS Documentation](https://docs.ceph.com/en/latest/radosgw/STS/)
-- [Rook Object Store Docs](https://rook.io/docs/rook/latest/Storage-Configuration/Object-Storage-RGW/object-storage/)
+- [Ceph v20 Release Notes - Dashboard OAuth](https://docs.ceph.com/en/latest/releases/tentacle/)
+- [Ceph oauth2-proxy Service](https://docs.ceph.com/en/latest/cephadm/services/oauth2-proxy/)
+- [Istio External Authorization](https://istio.io/latest/docs/tasks/security/authorization/authz-custom/)

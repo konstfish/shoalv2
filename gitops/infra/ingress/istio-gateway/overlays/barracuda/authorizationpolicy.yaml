@@ -17,6 +17,7 @@ spec:
         - "grafana.barracuda.net.konst.fish"
         - "kiali.barracuda.net.konst.fish"
         - "zeppelin.barracuda.net.konst.fish"
+        - "rook.barracuda.net.konst.fish"
 ---
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
@@ -34,6 +35,7 @@ spec:
         - "grafana.barracuda.net.konst.fish"
         - "kiali.barracuda.net.konst.fish"
         - "zeppelin.barracuda.net.konst.fish"
+        - "rook.barracuda.net.konst.fish"
     when:
     - key: request.auth.claims[groups]
       notValues: ["shoal-konst-fish:facultative"]

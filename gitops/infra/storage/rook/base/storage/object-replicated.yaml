@@ -1,14 +1,11 @@
 # Ceph Object Store (S3-compatible)
 #
-# Ceph v20 (Tentacle) supports OAuth/OIDC authentication via STS AssumeRoleWithWebIdentity.
-# This config enables STS/IAM APIs for programmatic OAuth support if needed.
+# Provides S3-compatible object storage via RGW (RADOS Gateway).
 #
-# Access options:
-# 1. Internal (in-cluster): Use service rook-ceph-rgw-ceph-objectstore.rook-ceph:80
-# 2. External with oauth2-proxy: Add HTTPRoute through oauth2-proxy
-# 3. Native STS/OIDC: Apps exchange OIDC tokens for temp S3 credentials (advanced)
+# Access:
+#   Internal: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc.cluster.local:80
 #
-# Docs: https://docs.ceph.com/en/latest/radosgw/STS/
+# Docs: https://rook.io/docs/rook/latest/Storage-Configuration/Object-Storage-RGW/object-storage/
 apiVersion: ceph.rook.io/v1
 kind: CephObjectStore
 metadata:
