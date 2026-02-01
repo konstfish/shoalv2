@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: istio-oauth2-sds
+  namespace: istio-ingress
+data:
+  token-secret.yaml: |-
+    resources:
+      - "@type": "type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.Secret"
+        name: token
+        generic_secret:
+          secret:
+            filename: "/var/run/secrets/oauth2/client-secret"
+  hmac-secret.yaml: |-
+    resources:
+      - "@type": "type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.Secret"
+        name: hmac
+        generic_secret:
+          secret:
+            filename: "/var/run/secrets/oauth2/hmac"

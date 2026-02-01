@@ -6,3 +6,4 @@ namespace: istio-ingress
 resources:
   - wildcard-internal-tls.yaml
   - http-gatway.yaml
+  - authorizationpolicy.yaml

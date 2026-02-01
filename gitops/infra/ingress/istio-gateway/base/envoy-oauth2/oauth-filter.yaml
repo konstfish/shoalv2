@@ -1,0 +1,83 @@
+# very cool -> https://xebia.com/blog/oauth2-based-authentication-on-istio-powered-kubernetes-clusters/
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: oauth2-dex
+  namespace: istio-ingress
+spec:
+  workloadSelector:
+    labels:
+      gateway.networking.k8s.io/gateway-name: http-gateway-netbird
+  configPatches:
+  - applyTo: CLUSTER
+    match:
+      cluster:
+        service: dex
+    patch:
+      operation: ADD
+      value:
+        name: dex
+        dns_lookup_family: V4_ONLY
+        type: LOGICAL_DNS
+        connect_timeout: 10s
+        lb_policy: ROUND_ROBIN
+        transport_socket:
+          name: envoy.transport_sockets.tls
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+            sni: auth.konst.fish
+        load_assignment:
+          cluster_name: dex
+          endpoints:
+          - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: auth.konst.fish
+                    port_value: 443
+  - applyTo: HTTP_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        filterChain:
+          filter:
+            name: "envoy.filters.network.http_connection_manager"
+            subFilter:
+              name: "envoy.filters.http.router"
+    patch:
+      operation: INSERT_BEFORE
+      value:
+        name: envoy.filters.http.oauth2
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.http.oauth2.v3.OAuth2
+          config:
+            token_endpoint:
+              cluster: dex
+              uri: https://auth.konst.fish/token
+              timeout: 3s
+            authorization_endpoint: https://auth.konst.fish/auth
+            redirect_uri: "https://%REQ(:authority)%/oauth2/callback"
+            redirect_path_matcher:
+              path:
+                exact: /oauth2/callback
+            signout_path:
+              path:
+                exact: /signout
+            credentials:
+              client_id: oauth2-proxy
+              token_secret:
+                name: token
+                sds_config:
+                  path: "/etc/istio/oauth2-sds/token-secret.yaml"
+              hmac_secret:
+                name: hmac
+                sds_config:
+                  path: "/etc/istio/oauth2-sds/hmac-secret.yaml"
+            pass_through_matcher:
+              - name: authorization
+                prefix_match: "Bearer "
+            auth_scopes:
+              - openid
+              - profile
+              - email
+              - groups

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2-cookie
+  namespace: oauth2-cookie
+  labels:
+    app: oauth2-cookie
+spec:
+  selector:
+    matchLabels:
+      app: oauth2-cookie
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: oauth2-cookie
+    spec:
+      containers:
+      - image: ghcr.io/konstfish/oauth2-cookie:0.1.0
+        imagePullPolicy: Always
+        name: oauth2-cookie
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "250Mi"
+          limits:
+            cpu: "100m"
+            memory: "250Mi"
+        env:
+          - name: RUST_LOG
+            value: "info"
+          - name: LISTEN_ADDR
+            value: "0.0.0.0:8080"
+        envFrom:
+          - secretRef:
+              name: oauth2-cookie

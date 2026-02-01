@@ -58,7 +58,7 @@ spec:
               name: 'oauth2-proxy'
               public: false
               redirectURIs:
-                - 'https://sso.barracuda.net.konst.fish/oauth2/callback'
+                - 'https://sso.barracuda.net.konst.fish/callback'
               trustedPeers: []
               secretEnv: OAUTH2_PROXY_CLIENT_SECRET
 

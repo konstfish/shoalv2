@@ -4,6 +4,8 @@ terraform.tfstate*
 .terraform
 .terraform.lock.hcl
 
+unsealed-*
+
 # etc
 temp.yml
 .env
