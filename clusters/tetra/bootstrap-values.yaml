@@ -8,9 +8,15 @@ components:
       operators:
         enabled: true
         basePath: overlays/barracuda
+      ccm-hcloud:
+        enabled: true
+        basePath: overlays/barracuda
     storage:
       local-path-provisioner:
         enabled: true
+      hcloud-csi:
+        enabled: true
+        basePath: base
     ingress:
       ingress-nginx:
         enabled: false

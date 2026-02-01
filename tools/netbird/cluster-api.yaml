@@ -1,0 +1,14 @@
+apiVersion: netbird.io/v1
+kind: NBResource
+metadata:
+  name: kubernetes
+  namespace: default
+spec:
+  address: kubernetes.default.svc.tetra.local
+  groups:
+  - tetra-default-api-access
+  name: tetra-default-kubernetes-api
+  networkID: d5v84hr1kipc738rraq0
+  policyName: cluster-api-access
+  tcpPorts:
+  - 443

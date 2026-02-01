@@ -1,0 +1,13 @@
+
+resources:
+  - ../../base
+
+patches:
+- patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/6
+      value: "--cluster-cidr=10.240.0.0/16"
+  target:
+    kind: Deployment
+    name: hcloud-cloud-controller-manager
+    namespace: kube-system

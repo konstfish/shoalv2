@@ -7,21 +7,57 @@ spec:
   source:
     helm:
       valuesObject:
-        cni:
-          exclusive: true
-          
         ipam:
           mode: kubernetes
 
-        externalIPs:
-          enabled: true
-
-        kubeProxyReplacement: true
-
-        ipv4NativeRoutingCIDR: 10.240.0.0/16
         routingMode: native
         tunnelProtocol: ""
-        autoDirectNodeRoutes: false
 
+        autoDirectNodeRoutes: false
+        #directRoutingSkipUnreachable: true
+        enableIPv4Masquerade: true
+
+        kubeProxyReplacement: true
+        k8s:
+          requireIPv4PodCIDR: true
+
+        socketLB:
+          hostNamespaceOnly: true
+                
+        bpf:
+          masquerade: true
+
+        endpointRoutes:
+          enabled: true
+
+        ipv4NativeRoutingCIDR: 10.240.0.0/16
+        ipv6:
+          enabled: false
+        k8sClientRateLimit:
+          burst: 100
+          qps: 50
         k8sServiceHost: 10.24.0.5
         k8sServicePort: 6443
+        l2announcements:
+          enabled: false
+          leaseDuration: 10s
+          leaseRenewDeadline: 7s
+          leaseRetryPeriod: 2s
+        securityContext:
+          capabilities:
+            ciliumAgent:
+            - CHOWN
+            - KILL
+            - NET_ADMIN
+            - NET_RAW
+            - IPC_LOCK
+            - SYS_ADMIN
+            - SYS_RESOURCE
+            - DAC_OVERRIDE
+            - FOWNER
+            - SETGID
+            - SETUID
+            cleanCiliumState:
+            - NET_ADMIN
+            - SYS_ADMIN
+            - SYS_RESOURCE

@@ -33,6 +33,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      ccm-hcloud:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
       velero:
         enabled: false
         type: kustomize

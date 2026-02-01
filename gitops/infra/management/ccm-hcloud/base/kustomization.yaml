@@ -1,0 +1,4 @@
+
+resources:
+  # renovate: datasource=github-releases depName=hetznercloud/hcloud-cloud-controller-manager
+  - https://github.com/hetznercloud/hcloud-cloud-controller-manager/releases/download/v1.29.2/ccm-networks.yaml

@@ -8,7 +8,7 @@ data "hcloud_ssh_key" "default" {
 
 resource "hcloud_network" "default" {
   name     = "vcn-${var.cluster_name}"
-  ip_range = var.cluster_network_range
+  ip_range = "10.0.0.0/8" // var.cluster_network_range
   labels   = var.hetzner_labels
 }
 
@@ -18,6 +18,23 @@ resource "hcloud_network_subnet" "cluster_network" {
   network_zone = var.hetzner_network_zone
   ip_range     = var.cluster_network_subnet_range
 }
+
+// need these two in the network - https://github.com/hetznercloud/hcloud-cloud-controller-manager/blob/8045e966bcab485efe2b37e4b12ec06cb7019dcc/docs/explanation/private-networks.md
+// nvm don't need the extra sub networks, enough to just make the main one a /8 
+// these conflict with the CCM
+/*resource "hcloud_network_subnet" "pod_network" {
+  type         = "cloud"
+  network_id   = hcloud_network.default.id
+  network_zone = var.hetzner_network_zone
+  ip_range     = var.pod_cidr
+}
+
+resource "hcloud_network_subnet" "service_network" {
+  type         = "cloud"
+  network_id   = hcloud_network.default.id
+  network_zone = var.hetzner_network_zone
+  ip_range     = var.service_cidr
+}*/
 
 resource "hcloud_firewall" "default" {
   name = "vcn-firewall-${var.cluster_name}"
