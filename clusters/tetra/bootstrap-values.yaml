@@ -35,3 +35,10 @@ components:
       netbird-operator:
         enabled: true
         basePath: overlays/tetra
+    observability:
+      prometheus:
+        enabled: true
+        basePath: overlays/tetra
+      grafana:
+        enabled: true
+        basePath: overlays/tetra

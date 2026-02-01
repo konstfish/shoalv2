@@ -2,7 +2,7 @@ namespace: cluster-observability-grafana
 
 resources:
   - ns.yaml
-  - gateway.yaml
+  - httproute.yaml
   - grafana.yaml
   - datasources
   - dashboards
