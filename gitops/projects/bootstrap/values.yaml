@@ -101,6 +101,11 @@ components:
         type: kustomize
         basePath: base
         autoSync: true
+      hcloud-csi:
+        enabled: false
+        type: kustomize
+        basePath: base
+        autoSync: true
     auth:
       dex:
         enabled: false
