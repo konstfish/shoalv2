@@ -1,3 +1,27 @@
+apiVersion: extensions.istio.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: oauth-redirect-wasm
+  namespace: istio-ingress
+spec:
+  selector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: http-gateway-netbird
+  url: oci://ghcr.io/konstfish/oauth-redirect-wasm:0.1.0
+  imagePullPolicy: Always
+  phase: AUTHN
+  pluginConfig:
+    redirect_url: https://sso.barracuda.net.konst.fish/login
+    redirect_param: rd
+    add_redirect_param: true
+    redirect_hosts:
+      - "grafana.barracuda.net.konst.fish"
+      - "kiali.barracuda.net.konst.fish"
+      - "zeppelin.barracuda.net.konst.fish"
+      # tetra
+      - "grafana.tetra.net.konst.fish"
+      - "kiali.tetra.net.konst.fish"
+---
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:

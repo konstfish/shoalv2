@@ -6,7 +6,7 @@ module.exports = {
   platform: 'github',
   repositories: ['konstfish/shoalv2'],
   ignorePaths: ['archive/**'],
-  reviewers: ['konstfish'],
+  assignees: ['konstfish'],
   packageRules: [
     {
       matchUpdateTypes: ['minor', 'patch', 'pin', 'digest'],
