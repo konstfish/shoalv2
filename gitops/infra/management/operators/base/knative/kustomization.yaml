@@ -1,4 +1,4 @@
 resources:
   - ns.yaml
   - og.yaml
-  - kiali.yaml
+  - knative.yaml
