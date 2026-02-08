@@ -7,10 +7,10 @@ components:
         enabled: true
       operators:
         enabled: true
-        basePath: overlays/barracuda
+        basePath: overlays/tetra
       ccm-hcloud:
         enabled: true
-        basePath: overlays/barracuda
+        basePath: overlays/tetra
     storage:
       local-path-provisioner:
         enabled: true

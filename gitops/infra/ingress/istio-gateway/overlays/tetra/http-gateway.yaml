@@ -22,3 +22,7 @@ data:
         load-balancer.hetzner.cloud/name: ingress-istio-tetr
         load-balancer.hetzner.cloud/use-private-ip: "true"
         load-balancer.hetzner.cloud/uses-proxyprotocol: "false"
+    spec:
+      ports:
+      - $patch: delete
+        port: 15021
