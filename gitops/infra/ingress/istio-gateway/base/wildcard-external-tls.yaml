@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-external-tls
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  secretName: wildcard-external-tls
+  issuerRef:
+    name: letsencrypt-dns
+    kind: ClusterIssuer
+  commonName: "konst.fish"
+  dnsNames:
+  - "*.konst.fish"
+  - "*.app.konst.fish"

@@ -3,5 +3,5 @@ resources:
   - ../../base/kiali
 
 patches:
-  - path: istio-ingress.yaml
+  # - path: istio-ingress.yaml
   - path: kiali/httproute.yaml

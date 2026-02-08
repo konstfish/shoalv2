@@ -3,17 +3,22 @@ kind: Gateway
 metadata:
   name: http-gateway
 spec:
+  infrastructure:
+    parametersRef:
+      group: ""
+      kind: ConfigMap
+      name: gateway-service-config
   gatewayClassName: istio
   listeners:
   - name: http
-    hostname: "*.net.konst.fish"
+    hostname: "*.konst.fish"
     port: 80
     protocol: HTTP
     allowedRoutes:
       namespaces:
         from: All
   - name: https
-    hostname: "*.net.konst.fish"
+    hostname: "*.konst.fish"
     port: 443
     protocol: HTTPS
     allowedRoutes:
@@ -22,5 +27,15 @@ spec:
     tls:
       mode: Terminate
       certificateRefs:
-      - name: wildcard-internal-tls
+      - name: wildcard-external-tls
         kind: Secret
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gateway-service-config
+data:
+  horizontalPodAutoscaler: |
+    spec:
+      minReplicas: 2
+      maxReplicas: 5
