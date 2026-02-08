@@ -5,5 +5,6 @@ resources:
   - cert.yaml
   - serving.yaml
   - peer.yaml
-  # service/pod monitors
-  - https://raw.githubusercontent.com/knative-extensions/monitoring/main/servicemonitor.yaml
+  # service/pod monitors (https://github.com/knative-extensions/monitoring)
+  - https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/config/serving-monitors.yaml
+  - https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/config/eventing-monitors.yaml
