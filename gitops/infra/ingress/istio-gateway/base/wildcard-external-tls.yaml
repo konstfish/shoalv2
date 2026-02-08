@@ -11,5 +11,6 @@ spec:
     kind: ClusterIssuer
   commonName: "konst.fish"
   dnsNames:
+  - "konst.fish"
   - "*.konst.fish"
   - "*.app.konst.fish"
