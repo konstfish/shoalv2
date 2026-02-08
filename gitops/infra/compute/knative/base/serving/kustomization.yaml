@@ -1,0 +1,9 @@
+namespace: knative-serving
+
+resources:
+  - ns.yaml
+  - cert.yaml
+  - serving.yaml
+  - peer.yaml
+  # service/pod monitors
+  - https://raw.githubusercontent.com/knative-extensions/monitoring/main/servicemonitor.yaml

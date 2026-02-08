@@ -1,0 +1,5 @@
+namespace: knative-eventing
+
+resources:
+  - ns.yaml
+  - eventing.yaml

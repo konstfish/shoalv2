@@ -1,0 +1,57 @@
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeServing
+metadata:
+  name: knative-serving
+  namespace: knative-serving
+spec:
+  config:
+    domain:
+      "functions.konst.fish": ""
+    network:
+      defaultExternalScheme: "https"
+      # TODO: something like this: https://bsideup.github.io/posts/knative_custom_domains/ super cool
+      domain-template: "{{.Name}}.{{.Domain}}"
+      autocreate-cluster-domain-claims: "true"
+    observability:
+      metrics.backend-destination: "prometheus"
+    istio:
+      external-gateways: |
+        - name: knative-ingress-gateway
+          namespace: knative-serving
+          service: istio-ingress.istio-ingress.svc.cluster.local
+      local-gateways: |
+        - name: knative-local-gateway
+          namespace: knative-serving
+          service: istio-ingress.istio-ingress.svc.cluster.local
+  ingress:
+    istio:
+      enabled: true
+      knative-ingress-gateway:
+        selector:
+          istio: ingressgateway
+        servers:
+        - hosts:
+          - "*.functions.konst.fish"
+          port:
+            name: http
+            number: 80
+            protocol: HTTP
+        - hosts:
+          - "*.functions.konst.fish"
+          port:
+            name: https
+            number: 443
+            protocol: HTTPS
+          tls:
+            mode: SIMPLE
+            credentialName: wildcard-functions-tls
+      knative-local-gateway:
+        selector:
+          istio: ingressgateway
+        servers:
+        - port:
+            number: 80
+            name: http
+            protocol: HTTP
+          hosts:
+          - "*"

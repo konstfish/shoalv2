@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-functions-tls
+  # need to reach over: https://knative.dev/docs/serving/encryption/external-domain-tls/#obtaining-a-certificate-using-a-tool
+  namespace: istio-ingress
+spec:
+  secretName: wildcard-functions-tls
+  issuerRef:
+    name: letsencrypt-dns
+    kind: ClusterIssuer
+  commonName: "*.functions.konst.fish"
+  dnsNames:
+  - "*.functions.konst.fish"

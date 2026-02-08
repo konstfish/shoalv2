@@ -35,6 +35,10 @@ components:
       netbird-operator:
         enabled: true
         basePath: overlays/tetra
+    compute:
+      knative:
+        enabled: true
+        basePath: base
     observability:
       prometheus:
         enabled: true
