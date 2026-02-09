@@ -9,5 +9,5 @@ resources:
   #- authorizationpolicy.yaml
 
 patches:
-  - patch: http-gateway.yaml
+  - path: http-gateway.yaml
   - path: wildcard-internal-tls.yaml

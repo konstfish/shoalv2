@@ -1,10 +1,15 @@
 namespace: knative-serving
 
 resources:
+  # renovate: datasource=github-releases depName=knative-extensions/net-gateway-api
+  - https://github.com/knative-extensions/net-gateway-api/releases/download/knative-v1.20.1/net-gateway-api.yaml
+  - net-gateway-api-rbac.yaml
   - ns.yaml
-  - cert.yaml
   - serving.yaml
   - peer.yaml
   # service/pod monitors (https://github.com/knative-extensions/monitoring)
   - https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/config/serving-monitors.yaml
   - https://raw.githubusercontent.com/knative-extensions/monitoring/refs/heads/main/config/eventing-monitors.yaml
+
+patches:
+  - path: config-gateway-patch.yaml

@@ -1,0 +1,1 @@
+ty to https://alexnjagi.medium.com/configuring-knative-to-use-kubernetes-gateway-api-and-istio-af036f0e0b63

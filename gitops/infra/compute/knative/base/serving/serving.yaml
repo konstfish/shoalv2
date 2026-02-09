@@ -6,52 +6,59 @@ metadata:
 spec:
   config:
     domain:
-      "functions.konst.fish": ""
+      "app.konst.fish": ""
     network:
+      ingress-class: "gateway-api.ingress.networking.knative.dev"
       defaultExternalScheme: "https"
       # TODO: something like this: https://bsideup.github.io/posts/knative_custom_domains/ super cool
       domain-template: "{{.Name}}.{{.Domain}}"
       autocreate-cluster-domain-claims: "true"
     observability:
       metrics.backend-destination: "prometheus"
-    istio:
+
+    # handled by config-gateway-patch.yaml rn
+    gateway:
       external-gateways: |
-        - name: knative-ingress-gateway
-          namespace: knative-serving
-          service: istio-ingress.istio-ingress.svc.cluster.local
+        - class: istio
+          gateway: istio-ingress/http-gateway
+          service: istio-ingress/http-gateway-istio
+          supported-features:
+            - HTTPRouteRequestTimeout
       local-gateways: |
-        - name: knative-local-gateway
-          namespace: knative-serving
-          service: istio-ingress.istio-ingress.svc.cluster.local
-  ingress:
-    istio:
-      enabled: true
-      knative-ingress-gateway:
-        selector:
-          istio: ingressgateway
-        servers:
-        - hosts:
-          - "*.functions.konst.fish"
-          port:
-            name: http
-            number: 80
-            protocol: HTTP
-        - hosts:
-          - "*.functions.konst.fish"
-          port:
-            name: https
-            number: 443
-            protocol: HTTPS
-          tls:
-            mode: SIMPLE
-            credentialName: wildcard-functions-tls
-      knative-local-gateway:
-        selector:
-          istio: ingressgateway
-        servers:
-        - port:
-            number: 80
-            name: http
-            protocol: HTTP
-          hosts:
-          - "*"
+        - class: istio
+          gateway: istio-ingress/http-gateway
+          service: istio-ingress/http-gateway-istio
+          supported-features:
+            - HTTPRouteRequestTimeout
+  # ingress:
+  #   istio:
+  #     enabled: true
+  #     knative-ingress-gateway:
+  #       selector:
+  #         gateway.networking.k8s.io/gateway-name: http-gateway
+  #       servers:
+  #       - hosts:
+  #         - "*.app.konst.fish"
+  #         port:
+  #           name: http
+  #           number: 80
+  #           protocol: HTTP
+  #       - hosts:
+  #         - "*.app.konst.fish"
+  #         port:
+  #           name: https
+  #           number: 443
+  #           protocol: HTTPS
+  #         tls:
+  #           mode: SIMPLE
+  #           credentialName: wildcard-external-tls
+  #     knative-local-gateway:
+  #       selector:
+  #         gateway.networking.k8s.io/gateway-name: http-gateway
+  #       servers:
+  #       - port:
+  #           number: 80
+  #           name: http
+  #           protocol: HTTP
+  #         hosts:
+  #         - "*"

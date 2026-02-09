@@ -17,6 +17,13 @@ spec:
     allowedRoutes:
       namespaces:
         from: All
+  - name: default
+    hostname: "*.svc.cluster.local"
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: All
   - name: https
     hostname: "*.konst.fish"
     port: 443

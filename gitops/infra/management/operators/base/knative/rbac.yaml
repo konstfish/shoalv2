@@ -1,0 +1,75 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: knative-operator-admin
+rules:
+  # Core API resources
+  - apiGroups: [""]
+    resources: ["endpoints", "endpoints/restricted"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["get", "list", "watch", "delete"]
+  - apiGroups: [""]
+    resources: ["namespaces", "namespaces/finalizers"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  - apiGroups: [""]
+    resources: ["secrets", "serviceaccounts", "services", "configmaps"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  # Admission webhooks
+  - apiGroups: ["admissionregistration.k8s.io"]
+    resources: ["mutatingwebhookconfigurations", "validatingwebhookconfigurations"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  # CRDs
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions", "customresourcedefinitions/status"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  # Apps
+  - apiGroups: ["apps"]
+    resources: ["deployments", "deployments/finalizers", "daemonsets", "replicasets", "statefulsets"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  # Autoscaling
+  - apiGroups: ["autoscaling"]
+    resources: ["horizontalpodautoscalers"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  # Knative internal APIs
+  - apiGroups: ["autoscaling.internal.knative.dev"]
+    resources: ["*", "*/finalizers", "*/status"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "deletecollection", "patch"]
+  - apiGroups: ["networking.internal.knative.dev"]
+    resources: ["*", "*/finalizers", "*/status"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "deletecollection", "patch"]
+  - apiGroups: ["serving.knative.dev"]
+    resources: ["*", "*/finalizers", "*/status"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "deletecollection", "patch"]
+  # Cert-manager
+  - apiGroups: ["cert-manager.io"]
+    resources: ["certificates", "certificaterequests", "clusterissuers", "issuers"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  - apiGroups: ["acme.cert-manager.io"]
+    resources: ["challenges"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  # Istio
+  - apiGroups: ["networking.istio.io"]
+    resources: ["destinationrules", "gateways", "virtualservices"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch"]
+  # RBAC - needed to create roles for Knative components
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["clusterroles", "clusterrolebindings", "roles", "rolebindings"]
+    verbs: ["get", "list", "watch", "create", "update", "delete", "patch", "bind", "escalate"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: knative-operator-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: knative-operator-admin
+subjects:
+  - kind: ServiceAccount
+    name: knative-operator
+    namespace: cluster-operator-knative

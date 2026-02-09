@@ -1,0 +1,36 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hits-konst-fish
+  namespace: hits-konst-fish
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containerConcurrency: 0
+      containers:
+      - image: ghcr.io/konstfish/hits:latest
+        name: user-container
+        resources:
+          requests:
+            cpu: 30m
+            memory: 50Mi
+          limits:
+            cpu: '1'
+            memory: 1Gi
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: REDIS_ADDR
+          value: "redis:6379"
+        readinessProbe:
+          successThreshold: 1
+          tcpSocket:
+            port: 8080
+      enableServiceLinks: false
+      timeoutSeconds: 300
+  traffic:
+  - latestRevision: true
+    percent: 100
