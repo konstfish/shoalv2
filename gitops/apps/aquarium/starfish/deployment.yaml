@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starfish
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: starfish
+  template:
+    metadata:
+      labels:
+        app: starfish
+        logging: enabled
+    spec:
+      containers:
+        - name: starfish
+          image: ghcr.io/konstfish/aquarium_starfish:latest
+          imagePullPolicy: Always
+          env:
+            - name: REDIS_URI
+              value: "redis://redis:6379/0"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "otel-collector-headless:4318"
+          ports:
+            - containerPort: 4005
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 4005
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3

@@ -1,6 +1,5 @@
 resources:
   - ../../base
-  - ../../base/exporters/node-exporter
   - ../../base/exporters/kube-state-metrics
 
 patches:

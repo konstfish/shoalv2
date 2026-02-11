@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sprite
+  labels:
+    app: sprite
+spec:
+  selector:
+    app: sprite
+  ports:
+    - protocol: TCP
+      name: http
+      port: 4001
+      targetPort: 4001

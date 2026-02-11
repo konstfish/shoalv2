@@ -1,0 +1,43 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: aquarium
+spec:
+  parentRefs:
+  - name: http-gateway
+    namespace: istio-ingress
+    sectionName: https
+  hostnames:
+  - "aquarium.app.konst.fish"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /sprites/v1
+    backendRefs:
+    - name: sprite
+      port: 4001
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /tetra/v1
+    backendRefs:
+    - name: tetra
+      port: 4002
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /puffer/v1
+    backendRefs:
+    - name: puffer
+      port: 4003
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /butterfly/v1
+    backendRefs:
+    - name: butterfly
+      port: 4004
+  - backendRefs:
+    - name: tank
+      port: 3000

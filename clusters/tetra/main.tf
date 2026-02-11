@@ -5,7 +5,7 @@ module "cluster" {
   hcloud_token     = var.hcloud_token
   ssh_key_name     = var.ssh_key_name
   server_type      = var.server_type
-  controller_count = 2 #var.controller_count
+  controller_count = var.controller_count
   worker_count     = var.worker_count
 
   hetzner_location             = var.hetzner_location

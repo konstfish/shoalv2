@@ -1,0 +1,5 @@
+namespace: knative-app
+
+resources:
+  - ns.yaml
+  - fgtconfig-ksvc.yaml

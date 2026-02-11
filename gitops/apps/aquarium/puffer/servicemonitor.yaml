@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: puffer
+  labels:
+    app: puffer
+spec:
+  selector:
+    matchLabels:
+      app: puffer
+  endpoints:
+  - port: http
+    interval: 30s

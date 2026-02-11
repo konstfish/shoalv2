@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whitelist-netset
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whitelist-netset
+  template:
+    metadata:
+      labels:
+        app: whitelist-netset
+    spec:
+      containers:
+      - name: whitelist-netset
+        image: ghcr.io/konstfish/whitelist-netset:main
+        ports:
+        - containerPort: 8080
+        env:
+        - name: REDIS_ADDR
+          value: "redis:6379"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 20

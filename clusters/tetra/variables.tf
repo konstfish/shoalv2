@@ -63,7 +63,7 @@ variable "controller_count" {
 variable "worker_count" {
   description = "The number of worker nodes in the cluster"
   type        = number
-  default     = 1
+  default     = 3
 }
 
 variable "talos_image_selector" {

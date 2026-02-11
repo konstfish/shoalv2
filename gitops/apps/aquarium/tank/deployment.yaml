@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tank
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tank
+  template:
+    metadata:
+      labels:
+        app: tank
+        logging: enabled
+    spec:
+      containers:
+        - name: tank
+          image: ghcr.io/konstfish/aquarium_tank:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi

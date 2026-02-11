@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: butterfly
+  labels:
+    app: butterfly
+spec:
+  selector:
+    matchLabels:
+      app: butterfly
+  endpoints:
+  - port: http
+    interval: 30s

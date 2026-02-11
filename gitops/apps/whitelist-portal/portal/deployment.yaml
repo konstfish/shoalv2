@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whitelist-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whitelist-portal
+  template:
+    metadata:
+      labels:
+        app: whitelist-portal
+    spec:
+      containers:
+      - name: whitelist-portal
+        image: ghcr.io/konstfish/whitelist-portal:main
+        ports:
+        - containerPort: 8080
+        env:
+        - name: REDIS_ADDR
+          value: "redis:6379"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 20

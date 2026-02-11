@@ -1,0 +1,7 @@
+namespace: whitelist-portal
+
+resources:
+  - redis
+  - portal
+  - netset
+  - ingress

@@ -1,0 +1,8 @@
+namespace: app-pocketbase
+
+resources:
+  - ns.yaml
+  - pvc.yaml
+  - service.yaml
+  - statefulset.yaml
+  - httproute.yaml

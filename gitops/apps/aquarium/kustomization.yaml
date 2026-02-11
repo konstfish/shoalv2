@@ -1,0 +1,13 @@
+namespace: app-aquarium
+
+resources:
+  - ns.yaml
+  - httproute.yaml
+  - cache
+  # components
+  - tank
+  - sprite
+  - tetra
+  - puffer
+  - butterfly
+  - starfish

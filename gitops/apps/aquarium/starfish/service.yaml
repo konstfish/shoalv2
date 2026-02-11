@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: starfish
+  labels:
+    app: starfish
+spec:
+  selector:
+    app: starfish
+  ports:
+    - protocol: TCP
+      name: http
+      port: 4005
+      targetPort: 4005

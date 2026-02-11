@@ -1,0 +1,7 @@
+namespace: ui-konst-fish
+
+resources:
+  - ns.yaml
+  - certificate.yaml
+  - domainmapping.yaml
+  - ksvc.yaml

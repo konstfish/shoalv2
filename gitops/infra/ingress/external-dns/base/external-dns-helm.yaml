@@ -8,21 +8,24 @@ metadata:
 spec:
   project: infra
   source:
-    # https://github.com/helm/helm/issues/13466
-    repoURL: registry-1.docker.io/bitnamicharts
+    repoURL: https://kubernetes-sigs.github.io/external-dns/
     chart: external-dns
-    targetRevision: 9.0.3
+    targetRevision: 1.20.0
     helm:
       valuesObject:
         txtPrefix: extdns
-        provider: cloudflare
+        provider:
+          name: cloudflare
         registry: noop
-        cloudflare:
-          secretName: cloudflare
-          proxied: false
+        env:
+          - name: CF_API_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: cloudflare
+                key: cloudflare_api_token
         extraArgs:
-          "annotation-filter": "external-dns.alpha.kubernetes.io/hostname"
-          "exclude-target-net": "10.0.0.0/8"
+           - --annotation-filter=external-dns.alpha.kubernetes.io/hostname
+           - --exclude-target-net=10.0.0.0/8
   destination:
     server: https://kubernetes.default.svc
     namespace: external-dns

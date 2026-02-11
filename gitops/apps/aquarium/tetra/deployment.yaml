@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tetra
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tetra
+  template:
+    metadata:
+      labels:
+        app: tetra
+        logging: enabled
+    spec:
+      containers:
+        - name: tetra
+          image: ghcr.io/konstfish/aquarium_tetra:latest
+          imagePullPolicy: Always
+          env:
+            - name: REDIS_URI
+              value: "redis://redis:6379/0"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "otel-collector-headless:4318"
+          ports:
+            - containerPort: 4002
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 4002
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3

@@ -1,0 +1,8 @@
+namespace: hits-konst-fish
+
+resources:
+  - ns.yaml
+  - certificate.yaml
+  - domainmapping.yaml
+  - ksvc.yaml
+  - redis.yaml

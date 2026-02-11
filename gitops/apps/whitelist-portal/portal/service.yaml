@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: whitelist-portal
+spec:
+  selector:
+    app: whitelist-portal
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: puffer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: puffer
+  template:
+    metadata:
+      labels:
+        app: puffer
+        logging: enabled
+    spec:
+      containers:
+        - name: puffer
+          image: ghcr.io/konstfish/aquarium_puffer:latest
+          imagePullPolicy: Always
+          env:
+            - name: REDIS_URI
+              value: "redis://redis:6379/0"
+            - name: TETRA_URL
+              value: http://tetra:4002/tetra/v1/echo
+            - name: BUTTERFLY_URL
+              value: http://butterfly:4004/butterfly/v1/error
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "otel-collector-headless:4318"
+          ports:
+            - containerPort: 4003
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 4003
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
