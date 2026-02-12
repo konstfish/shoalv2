@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://charts.hetzner.cloud
     chart: hcloud-csi
-    targetRevision: 2.18.3
+    targetRevision: 2.19.0
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
