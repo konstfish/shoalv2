@@ -11,7 +11,7 @@ spec:
     # https://github.com/helm/helm/issues/13466
     repoURL: ghcr.io/k8snetworkplumbingwg
     chart: whereabouts-chart
-    targetRevision: 0.9.2
+    targetRevision: 0.9.3
   destination:
     server: https://kubernetes.default.svc
   syncPolicy:
