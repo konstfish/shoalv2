@@ -24,7 +24,7 @@ components:
         basePath: overlays/tetra
       istio:
         enabled: true
-        basePath: overlays/tetra
+        basePath: overlays/tuna
       netbird-operator:
         enabled: false
         basePath: overlays/tetra
