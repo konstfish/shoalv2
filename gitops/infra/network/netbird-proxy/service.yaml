@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: netbird-reverse-proxy
+  annotations:
+    load-balancer.hetzner.cloud/location: nbg1
+    load-balancer.hetzner.cloud/name: ingress-netbird-tetra
+    load-balancer.hetzner.cloud/use-private-ip: "true"
+    load-balancer.hetzner.cloud/uses-proxyprotocol: "false"
+spec:
+  selector:
+    app: netbird-reverse-proxy
+  type: LoadBalancer
+  ports:
+  - name: https
+    targetPort: 8443
+    port: 443

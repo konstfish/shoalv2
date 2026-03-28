@@ -1,0 +1,16 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+  name: netbird-reverse-proxy
+  namespace: netbird-proxy
+spec:
+  parentRefs:
+  - name: http-gateway
+    namespace: istio-ingress
+    sectionName: tls-passthrough
+  hostnames:
+  - "*.proxy.konst.fish"
+  rules:
+  - backendRefs:
+    - name: netbird-reverse-proxy
+      port: 8443

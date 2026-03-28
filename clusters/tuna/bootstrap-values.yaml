@@ -1,0 +1,38 @@
+components:
+  infra:
+    management:
+      argocd:
+        enabled: true
+      olm:
+        enabled: false
+      operators:
+        enabled: false
+    storage:
+      local-path-provisioner:
+        enabled: false
+    ingress:
+      ingress-nginx:
+        enabled: false
+      cert-manager:
+        enabled: true
+      istio-gateway:
+        enabled: false
+        basePath: overlays/tetra
+    network:
+      cilium:
+        enabled: false
+        basePath: overlays/tetra
+      istio:
+        enabled: false
+        basePath: overlays/tetra
+      netbird-operator:
+        enabled: false
+        basePath: overlays/tetra
+    compute:
+      knative:
+        enabled: false
+    observability:
+      prometheus:
+        enabled: false
+      grafana:
+        enabled: false
