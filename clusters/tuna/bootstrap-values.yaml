@@ -4,9 +4,10 @@ components:
       argocd:
         enabled: true
       olm:
-        enabled: false
+        enabled: true
       operators:
-        enabled: false
+        enabled: true
+        basePath: overlays/tuna
     storage:
       local-path-provisioner:
         enabled: false
@@ -33,6 +34,6 @@ components:
         enabled: false
     observability:
       prometheus:
-        enabled: false
+        enabled: true
       grafana:
         enabled: false
