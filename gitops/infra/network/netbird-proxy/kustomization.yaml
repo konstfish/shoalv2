@@ -3,7 +3,7 @@ namespace: netbird-proxy
 
 resources:
   - ns.yaml
-  - secret.yaml
+  # - secret.yaml
   - deployment.yaml
   - cert.yaml
   - service.yaml

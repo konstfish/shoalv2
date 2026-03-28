@@ -16,14 +16,14 @@ components:
       cert-manager:
         enabled: true
       istio-gateway:
-        enabled: false
-        basePath: overlays/tetra
+        enabled: true
+        basePath: overlays/tuna
     network:
       cilium:
         enabled: false
         basePath: overlays/tetra
       istio:
-        enabled: false
+        enabled: true
         basePath: overlays/tetra
       netbird-operator:
         enabled: false

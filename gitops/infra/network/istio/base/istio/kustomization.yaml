@@ -3,5 +3,5 @@ resources:
   - istio-base.yaml
   - istiod.yaml
   - monitoring.yaml
-  - ingress
+  #- ingress
   #- egress
