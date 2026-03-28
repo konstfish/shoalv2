@@ -31,7 +31,7 @@ components:
         basePath: overlays/tetra
     compute:
       knative:
-        enabled: false
+        enabled: true
     observability:
       prometheus:
         enabled: true

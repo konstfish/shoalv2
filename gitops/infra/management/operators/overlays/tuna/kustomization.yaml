@@ -2,4 +2,4 @@ resources:
   - ../../base/prometheus
   - ../../base/grafana
   #- ../../base/kiali
-  #- ../../base/knative
+  - ../../base/knative
