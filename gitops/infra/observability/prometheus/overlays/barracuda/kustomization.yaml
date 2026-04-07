@@ -1,6 +1,7 @@
 resources:
   - ../../base
   - ../../base/exporters/kube-state-metrics
+  - ../../base/exporters/node-exporter
 
 patches:
   - path: prometheus.yaml
