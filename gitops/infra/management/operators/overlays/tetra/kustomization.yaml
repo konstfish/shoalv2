@@ -4,3 +4,4 @@ resources:
   - ../../base/tekton
   - ../../base/kiali
   - ../../base/knative
+  - ../../base/cnpg
