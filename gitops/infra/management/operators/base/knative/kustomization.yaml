@@ -2,3 +2,4 @@ resources:
   - ns.yaml
   - og.yaml
   - knative.yaml
+  - rbac.yaml

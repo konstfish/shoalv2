@@ -15,9 +15,11 @@ spec:
     redirect_param: rd
     add_redirect_param: true
     redirect_hosts:
+      # barracuda
       - "grafana.barracuda.net.konst.fish"
       - "kiali.barracuda.net.konst.fish"
       - "zeppelin.barracuda.net.konst.fish"
+      - "tekton.barracuda.net.konst.fish"
       # tetra
       - "grafana.tetra.net.konst.fish"
       - "kiali.tetra.net.konst.fish"
@@ -38,6 +40,7 @@ spec:
         - "grafana.barracuda.net.konst.fish"
         - "kiali.barracuda.net.konst.fish"
         - "zeppelin.barracuda.net.konst.fish"
+        - "tekton.barracuda.net.konst.fish"
         # tetra
         - "grafana.tetra.net.konst.fish"
         - "kiali.tetra.net.konst.fish"

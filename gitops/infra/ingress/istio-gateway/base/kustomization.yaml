@@ -8,3 +8,4 @@ resources:
   - wildcard-external-tls.yaml
   - http-gatway.yaml
   - authorizationpolicy.yaml
+  - redirect.yaml
