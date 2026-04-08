@@ -26,4 +26,4 @@ k apply -f bootstrap/argo-bootstrap-app.yaml
 
 k apply -f bootstrap/etc
 
-# helm install olm oci://ghcr.io/cloudtooling/helm-charts/olm --version 0.31.0 --set namespace=olm --set catalog_namespace=olm --set operator_namespace=operators
+# helm install olm oci://ghcr.io/cloudtooling/helm-charts/olm --version 0.41.0 --set namespace=olm --set catalog_namespace=olm --set operator_namespace=operators
