@@ -53,6 +53,9 @@ components:
     compute:
       kubevirt:
         enabled: true
+      nvidia:
+        enabled: true
+        basePath: base
     observability:
       prometheus:
         enabled: true

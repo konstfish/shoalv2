@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nvidia-gpu-operator
+  namespace: cluster-infra-argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: infra
+  source:
+    repoURL: https://helm.ngc.nvidia.com/nvidia
+    chart: gpu-operator
+    targetRevision: v26.3.0
+    helm:
+      valuesObject:
+        operator:
+          defaultRuntime: containerd
+          # https://github.com/NVIDIA/gpu-operator/issues/2239
+          repository: ghcr.io/nvidia
+          image: gpu-operator
+          version: 670be908
+        driver:
+          enabled: false
+        toolkit:
+          enabled: false
+
+        devicePlugin:
+          enabled: true
+
+        dcgmExporter:
+          enabled: true
+          serviceMonitor:
+            enabled: true
+
+        gfd:
+          enabled: true
+        migManager:
+          enabled: false
+        nfd:
+          enabled: true
+
+        validator:
+          driver:
+            env:
+              - name: DISABLE_DEV_CHAR_SYMLINK_CREATION
+                value: "true"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gpu-operator
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

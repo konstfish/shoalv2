@@ -13,11 +13,17 @@ spec:
     targetRevision: 4.51.1
     helm:
       valuesObject:
+        extraArgs:
+          - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run|var/lib/kubelet/.+|var/lib/containerd/.+|system)($|/)
+          - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs|tmpfs)$
+          - --collector.netclass.ignored-devices=^(veth.*)$
+        tolerations:
+          - operator: Exists
         prometheus:
           monitor:
             enabled: true
             relabelings:
-            - sourceLabels: 
+            - sourceLabels:
                 - __meta_kubernetes_pod_node_name
               targetLabel: node
               action: replace
